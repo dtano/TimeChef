@@ -5,6 +5,7 @@ using UnityEngine;
 public class ControlledMovement : MonoBehaviour
 {
     public float moveSpeed;
+    private float currSpeed = 0f;
     private Rigidbody2D rb;
     private Animator animator;
 
@@ -21,6 +22,12 @@ public class ControlledMovement : MonoBehaviour
     {
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
+
+        if(movement.x != 0 || movement.y != 0){
+            currSpeed = 1;
+        }else{
+            currSpeed = 0;
+        }
     }
 
     void FixedUpdate()
