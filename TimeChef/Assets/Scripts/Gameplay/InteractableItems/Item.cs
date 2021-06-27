@@ -2,36 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+public abstract class Item : MonoBehaviour
 {
     public enum InteractionType {
         PickUp,
-        Utilize
+        Tool
     }
 
     public InteractionType type;
+    private InteractionTrigger triggerZone;
     // Start is called before the first frame update
-    void Start()
-    {
+    // void Start()
+    // {
         
+    // }
+    void Awake()
+    {
+        triggerZone = GetComponentInChildren<InteractionTrigger>();
     }
 
-    // void OnTriggerEnter2D(Collider2D col)
+    public void ActivateInteraction()
+    {
+        triggerZone.Activate();
+    }
+
+    
+
+    // public void Interact()
     // {
-    //     if(col.tag == "Player"){
-    //         col.gameObject.GetComponent<ItemSystem>()
+    //     switch(type){
+    //         case InteractionType.PickUp:
+    //             Debug.Log("Picking up item");
+    //             break;
+    //         case InteractionType.Utilize:
+    //             Debug.Log("Using item");
+    //             break;
     //     }
     // }
-
-    public void Interact()
-    {
-        switch(type){
-            case InteractionType.PickUp:
-                Debug.Log("Picking up item");
-                break;
-            case InteractionType.Utilize:
-                Debug.Log("Using item");
-                break;
-        }
-    }
 }

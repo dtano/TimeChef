@@ -16,18 +16,40 @@ public class ItemSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(currItem == null){
-            // Do a raycast check 
-            if(DetectItem()){
-                Debug.Log("Detected an item");
-                // Indicate that the item can be picked up
-                if(Input.GetKeyDown(KeyCode.Space)){
-                    // Make the detected object a child of the player and place it
-                    // in the carryPoint. change currItem to point to this item
-                    Debug.Log("Initiating pick up sequence");
-                    PickUp();
-                }
+        // if(currItem == null){
+        //     Debug.Log("No carry");
+        //     // Do a raycast check 
+        //     if(DetectItem()){
+        //         Debug.Log("Detected an item");
+        //         // Indicate that the item can be picked up
+        //         if(Input.GetKeyDown(KeyCode.Space)){
+        //             // Make the detected object a child of the player and place it
+        //             // in the carryPoint. change currItem to point to this item
+        //             Debug.Log("Initiating pick up sequence");
+        //             PickUp();
+        //         }
+        //     }
+        // }else{
+        //     if(Input.GetKeyDown(KeyCode.Q)){
+        //         currItem.gameObject.transform.parent = null;
+        //         //currItem.GetComponent<Rigidbody2D>().isKinematic = false;
+        //         currItem.GetComponent<Collider2D>().enabled = true;
+        //         currItem = null;
+        //     }
+
+
+        // }
+
+        if(currItem != null){
+            if(Input.GetKeyDown(KeyCode.Q)){
+                currItem.gameObject.transform.parent = null;
+                //currItem.GetComponent<Rigidbody2D>().isKinematic = false;
+                currItem.GetComponent<Collider2D>().enabled = true;
+                currItem.ActivateInteraction();
+                currItem = null;
             }
+            
+
         }
         //else{
         //     if(Input.GetKeyDown(KeyCode.Space)){
@@ -61,24 +83,34 @@ public class ItemSystem : MonoBehaviour
         return false;
     }
 
+    
+
     void PickUp()
     {
         currItem = detectedItem.GetComponent<Item>();
         currItem.transform.parent = carryPoint;
         currItem.transform.position = carryPoint.position;
         currItem.GetComponent<Rigidbody2D>().isKinematic = true;
+        currItem.GetComponent<Collider2D>().enabled = false;
         detectedItem = null;
-    }
+    } 
 
     // Receive an item from a spawner (In this case its gonna be the fridge)
     public void GetItem(GameObject item)
     {   
         // Only possible if there are no items being carried
-        if(currItem == null){
+        if(currItem == null && DetectItem()){
             detectedItem = item;
             // Pick up the item 
             PickUp();
         }
+    }
+
+    public void DropItem()
+    {
+        currItem.gameObject.GetComponent<Collider2D>().enabled = true;
+        currItem = null;
+        // Change player animation back to normal hands
     }
 
     // private void OnDrawGizmosSelected()
@@ -87,11 +119,14 @@ public class ItemSystem : MonoBehaviour
     //     Gizmos.DrawSphere(detectionPoint.position, detectionRadius);
     // }
 
-    // This function is called when the object 
-    void UseItem()
+    public bool isCarrying()
     {
-        // Item object will be deleted?
-        currItem = null;
+        return currItem != null;
+    }
+
+    public Item GetCurrItem()
+    {
+        return currItem;
     }
 
     
