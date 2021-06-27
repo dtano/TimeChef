@@ -113,6 +113,14 @@ public class ItemSystem : MonoBehaviour
         // Change player animation back to normal hands
     }
 
+    public void Dispose()
+    {
+        if(currItem != null){
+            Destroy(currItem.gameObject);
+            currItem = null;
+        }
+    }
+
     // private void OnDrawGizmosSelected()
     // {
     //     Gizmos.color = Color.green;

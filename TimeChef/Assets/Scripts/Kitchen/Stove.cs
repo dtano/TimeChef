@@ -17,6 +17,7 @@ public class Stove : Appliance
     // Update is called once per frame
     protected override void Update()
     {
+        // Stove has to check whether or not the pan or pot has received any ingredients
         if(cookingTool != null)
         {
             Debug.Log(cookingTool);
@@ -25,9 +26,18 @@ public class Stove : Appliance
 
     protected override bool WillAcceptItem(Item givenItem)
     {
-        if(givenItem is Kitchenware){
-            return true;
+        if(!isHolding){
+            if(givenItem is Kitchenware){
+                return true;
+            }
+        }else{
+            if(givenItem is Ingredient){
+                return true;
+            }
         }
+        // if(givenItem is Kitchenware){
+        //     return true;
+        // }
         return false;
     }
 
@@ -38,6 +48,11 @@ public class Stove : Appliance
         cookingTool.gameObject.transform.position = itemHolder.position;
         cookingTool.ActivateInteraction();
         isHolding = true;
+    }
+
+    void HandleIngredient(Item givenItem)
+    {
+
     }
 
     public void RemoveItem()

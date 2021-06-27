@@ -41,16 +41,15 @@ public abstract class Appliance : MonoBehaviour
         if(agentItems.isCarrying()){
                 Debug.Log("Player can use this appliance");
                 // Means that the player is able to use this appliance
-                if(Input.GetKeyDown(KeyCode.E)){
-                    if(WillAcceptItem(agentItems.GetCurrItem())){
-                        // Take the item
-                        Debug.Log("Item accepted");
-                        AcceptItem(agentItems);
-                    }else{
-                        Debug.Log("Item declined");
-                        DeclineItem();
-                    }
+                if(WillAcceptItem(agentItems.GetCurrItem())){
+                    // Take the item
+                    Debug.Log("Item accepted");
+                    AcceptItem(agentItems);
+                }else{
+                    Debug.Log("Item declined");
+                    DeclineItem();
                 }
+                
             }else{
                 Debug.Log("Can't use this application");
             }
