@@ -9,6 +9,8 @@ public class ControlledMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
 
+    public Transform detectionPoint;
+
     private Vector2 movement;
     
     // Start is called before the first frame update
@@ -23,8 +25,13 @@ public class ControlledMovement : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
+        float angle = Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg;
+        //Debug.Log(angle);
+        //detectionPoint.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
         if(movement.x != 0 || movement.y != 0){
             currSpeed = 1;
+            detectionPoint.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }else{
             currSpeed = 0;
         }
