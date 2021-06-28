@@ -21,8 +21,9 @@ public class ToolTrigger : InteractionTrigger
         }else{
             // If the player isn't carrying anything
             if(Input.GetKeyDown(KeyCode.Space)){
-                agentItems.GetItem(transform.parent.gameObject);
-                Deactivate();
+                if(agentItems.GetItem(transform.parent.gameObject)){
+                    Deactivate();
+                }
             }
         }
     }

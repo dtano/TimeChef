@@ -251,6 +251,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2114832315250782803, guid: f5ddf033bd315b9478de45cb2e02bfa4, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2114832315250782804, guid: f5ddf033bd315b9478de45cb2e02bfa4, type: 3}
       propertyPath: ingredientType
       value: 1
@@ -464,7 +468,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   carryPoint: {fileID: 388202556}
   detectionPoint: {fileID: 1819461649}
-  detectionRadius: 1.5
+  detectionRadius: 0.8
   detectionLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -573,6 +577,22 @@ PrefabInstance:
     - target: {fileID: 558081725656770970, guid: 8ea5c89f96023e643953b2508b833a8f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2702735391479813223, guid: 8ea5c89f96023e643953b2508b833a8f, type: 3}
+      propertyPath: m_Size.x
+      value: 1.6605997
+      objectReference: {fileID: 0}
+    - target: {fileID: 2702735391479813223, guid: 8ea5c89f96023e643953b2508b833a8f, type: 3}
+      propertyPath: m_Size.y
+      value: 2.8596168
+      objectReference: {fileID: 0}
+    - target: {fileID: 2702735391479813223, guid: 8ea5c89f96023e643953b2508b833a8f, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.04558277
+      objectReference: {fileID: 0}
+    - target: {fileID: 2702735391479813223, guid: 8ea5c89f96023e643953b2508b833a8f, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.5023987
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ea5c89f96023e643953b2508b833a8f, type: 3}

@@ -59,6 +59,7 @@ public abstract class InteractionTrigger : MonoBehaviour
 
     public void Deactivate()
     {
+        Debug.Log("Calling deactivate");
         GetComponent<Collider2D>().enabled = false;
         inRange = false;
     }
