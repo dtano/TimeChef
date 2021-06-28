@@ -8,6 +8,8 @@ public class Ingredient : Item
     private bool isProcessed = false;
     public float processTime;
     private float currTimer = 0f;
+
+    public string ingredientName;
     // Needs a variable that 
 
     public enum IngredientType{

@@ -6,14 +6,14 @@ public class Timer : MonoBehaviour
 {
     private float duration;
     private float currTime;
-    private bool stopTimer;
+    private bool timeOver = false;
     private bool timerOn = false;
 
     
     // Start is called before the first frame update
     void Start()
     {
-        stopTimer = false;    
+        timerOn = false;    
     }
 
     // Update is called once per frame
@@ -24,7 +24,7 @@ public class Timer : MonoBehaviour
 
             if(Mathf.Round(currTime) <= 0){
                 Debug.Log("Time's up, food's done cooking");
-                stopTimer = true;
+                timeOver = true;
                 timerOn = false;
                 currTime = duration;
             }else{
@@ -52,5 +52,17 @@ public class Timer : MonoBehaviour
     public bool IsTimerOn()
     {
         return timerOn;
+    }
+
+    public bool IsTimerFinished()
+    {
+        return timeOver;
+    }
+
+    public void Reset()
+    {
+        currTime = duration;
+        //timerOn = false;
+        timeOver = false;
     }
 }

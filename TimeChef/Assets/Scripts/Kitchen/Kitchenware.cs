@@ -6,7 +6,9 @@ public class Kitchenware : Item
 {
     // Accepts ingredients
     private List<Ingredient> ingredients;
-    private Ingredient[] ing;
+
+    // A list of ingredients that a tool can accept
+    public List<string> acceptedIngredients;
 
     private bool isCooking = false;
     private bool isOnAppliance = false;
@@ -22,7 +24,7 @@ public class Kitchenware : Item
     {
         // Takes in one or more ingredients
         ingredients = new List<Ingredient>();
-        ing = new Ingredient[3];
+        acceptedIngredients = new List<string>();
         timer = GetComponent<Timer>();
     }
 
@@ -37,6 +39,12 @@ public class Kitchenware : Item
             //Debug.Log("Initiate timer");
         }
 
+        if(isCooking){
+            if(timer.IsTimerFinished()){
+                // Then food is finished
+                IngredientSynthesis();
+            }
+        }
         // if(isCooking && currTime >= cookingTime){
         //     // Ding sound
         //     // Indicate that the dish is done 
@@ -50,10 +58,40 @@ public class Kitchenware : Item
         ingredients.Add(ingredient);
         if(isCooking){
             // Reset the counter back to 0
-        }else{
-            // Start the cooking counter
+            timer.Reset();
+        }
+        Debug.Log(ingredients.Count);
+        foreach(Ingredient ing in ingredients)
+        {
+            Debug.Log(ing.ingredientName);
+        }
+    }
+
+    // Combination of ingredients on the pan/pot to produce a new ingredient
+    public void IngredientSynthesis()
+    {
+        // Get the names of the ingredients
+        List<string> ingredientNames = new List<string>();
+        foreach(Ingredient ing in ingredients){
+            ingredientNames.Add(ing.ingredientName);
+        }
+        
+        // Look thorough all the recipes and find the one that is equal
+        foreach(KeyValuePair<string, string[]> entry in RecipeBook._instance.recipes){
+            if(ingredients.Count == entry.Value.Length){
+                List<string> recipeIng = new List<string>(entry.Value);
+                var isEqual = new HashSet<string>(recipeIng).SetEquals(ingredientNames);
+                if(isEqual){
+                    // Found a recipe for this combination
+                    Debug.Log("Found a recipe");
+                    return;
+                }
+            }
 
         }
+
+        Debug.Log("No recipe with this combo");
+        
     }
 
     public bool isBusy()
@@ -74,6 +112,9 @@ public class Kitchenware : Item
         if(!isCooking){
             cookingTime = 0;
         }else{
+            // if(timer.IsTimerFinished()){
+
+            // }
             Debug.Log("Pan was still cooking when it was removed from stove");
             timer.Deactivate();
             isCooking = false;
