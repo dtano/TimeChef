@@ -26,6 +26,12 @@ public abstract class Item : MonoBehaviour
         triggerZone.Activate();
     }
 
+    public void DeactivateInteraction()
+    {
+        triggerZone.Deactivate();
+    }
+
+
     
 
     // public void Interact()

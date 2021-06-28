@@ -48,7 +48,7 @@ public class ItemSystem : MonoBehaviour
                 currItem.ActivateInteraction();
                 currItem = null;
             }
-            
+            Debug.Log("Carrying item");
 
         }
         //else{
@@ -111,6 +111,14 @@ public class ItemSystem : MonoBehaviour
         currItem.gameObject.GetComponent<Collider2D>().enabled = true;
         currItem = null;
         // Change player animation back to normal hands
+    }
+
+    public void Dispose()
+    {
+        if(currItem != null){
+            Destroy(currItem.gameObject);
+            currItem = null;
+        }
     }
 
     // private void OnDrawGizmosSelected()

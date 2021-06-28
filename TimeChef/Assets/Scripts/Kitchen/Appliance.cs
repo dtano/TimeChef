@@ -6,7 +6,8 @@ public abstract class Appliance : MonoBehaviour
 {
     protected Item interactedItem;
     public float processingTime;
-    private bool isProcessing = false;
+    protected bool isProcessing = false;
+    protected bool isHolding = false;
 
     
     // Start is called before the first frame update
@@ -23,15 +24,6 @@ public abstract class Appliance : MonoBehaviour
         }
     }
 
-    // void OnCollisionStay2D(Collision2D col)
-    // {
-    //     if(col.collider.gameObject.tag == "Agent"){
-    //         Debug.Log(col.collider.gameObject.tag);
-    //         ItemSystem agentItems = col.collider.gameObject.GetComponent<ItemSystem>();
-            
-    //     }
-    // }
-
     protected abstract void Action();
     protected abstract bool WillAcceptItem(Item givenItem);
     protected abstract void HandleItem(Item givenItem);
@@ -41,16 +33,15 @@ public abstract class Appliance : MonoBehaviour
         if(agentItems.isCarrying()){
                 Debug.Log("Player can use this appliance");
                 // Means that the player is able to use this appliance
-                if(Input.GetKeyDown(KeyCode.E)){
-                    if(WillAcceptItem(agentItems.GetCurrItem())){
-                        // Take the item
-                        Debug.Log("Item accepted");
-                        AcceptItem(agentItems);
-                    }else{
-                        Debug.Log("Item declined");
-                        DeclineItem();
-                    }
+                if(WillAcceptItem(agentItems.GetCurrItem())){
+                    // Take the item
+                    Debug.Log("Item accepted");
+                    AcceptItem(agentItems);
+                }else{
+                    Debug.Log("Item declined");
+                    DeclineItem();
                 }
+                
             }else{
                 Debug.Log("Can't use this application");
             }

@@ -3,36 +3,49 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class InteractionTrigger : MonoBehaviour
+public abstract class InteractionTrigger : MonoBehaviour
 {
     // private Appliance appliance;
     // private ItemSystem agentItems;
-    private bool inRange = false;
+    protected bool inRange = false;
+    protected GameObject gameplayAgent;
+    protected ItemSystem agentItems;
 
-    public UnityEvent interactionEvent;
-    public KeyCode interactionKey;
+    //public UnityEvent interactionEvent;
+    //public KeyCode interactionKey;
     // void Awake()
     // {
     //     appliance = this.gameObject.transform.parent.GetComponent<Appliance>();
     // }
-    
-    void Update()
+    protected abstract void Awake();
+    protected virtual void Update()
     {
-        if(inRange)
-        {
-            if(Input.GetKeyDown(interactionKey)){
-                interactionEvent.Invoke();
-                inRange = false;
-            }
-            //appliance.UseAppliance(agentItems);
+        if(inRange){
+            Interact();
         }
     }
+    protected abstract void Interact();
+    
+    // void Update()
+    // {
+    //     // if(inRange)
+    //     // {
+    //     //     if(Input.GetKeyDown(interactionKey)){
+    //     //         //interactionEvent.Invoke();
+    //     //         inRange = false;
+    //     //     }
+    //     //     //appliance.UseAppliance(agentItems);
+    //     // }
+    // }
     
     void OnTriggerEnter2D(Collider2D col)
     {
         if(col.tag == "Agent"){
             // Then appliance can be used
+            Debug.Log("item can be taken or interacted with");
             inRange = true;
+            gameplayAgent = col.gameObject;
+            agentItems = gameplayAgent.GetComponent<ItemSystem>();
             //agentItems = col.gameObject.GetComponent<ItemSystem>();
         }
     }
@@ -40,7 +53,8 @@ public class InteractionTrigger : MonoBehaviour
     void OnTriggerExit2D(Collider2D col)
     {
         inRange = false;
-        //agentItems = null;
+        gameplayAgent = null;
+        agentItems = null;
     }
 
     public void Deactivate()
