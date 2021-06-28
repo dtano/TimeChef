@@ -33,9 +33,11 @@ public class ToolTrigger : InteractionTrigger
         Item carriedItem = agentItems.GetCurrItem();
         if(carriedItem is Ingredient){
             // Add ingredient to the pan/pot
-            tool.AddIngredient((Ingredient) carriedItem);
-            // Then delete the gameObject
-            agentItems.Dispose();
+            if(!tool.isFullCapacity()){
+                tool.AddIngredient((Ingredient) carriedItem);
+                // Then delete the gameObject
+                agentItems.Dispose();
+            }
 
         }else if(carriedItem is Kitchenware){
 

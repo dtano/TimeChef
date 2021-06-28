@@ -10,6 +10,14 @@ public class Ingredient : Item
     private float currTimer = 0f;
     // Needs a variable that 
 
+    public enum IngredientType{
+        Chopped,
+        Whole
+    }
+
+    public IngredientType ingredientType;
+    
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -38,5 +46,16 @@ public class Ingredient : Item
     public void Process()
     {
 
+    }
+
+    public void TransformType(IngredientType newType)
+    {
+        if(ingredientType == IngredientType.Chopped && newType == IngredientType.Whole){
+            Debug.Log("Invalied transformation");
+        }else{
+            ingredientType = newType;
+            // Change sprite
+            Debug.Log("Ingredient has been transformed");
+        }
     }
 }

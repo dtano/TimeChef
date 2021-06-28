@@ -7,7 +7,8 @@ public class Stove : Appliance
     // Stove needs to know when a pan or pot is removed
     private Kitchenware cookingTool;
     public Transform itemHolder;
-    private bool isHolding = false;
+    
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -18,8 +19,16 @@ public class Stove : Appliance
     protected override void Update()
     {
         // Stove has to check whether or not the pan or pot has received any ingredients
+        if(isHolding && cookingTool.transform.parent != itemHolder.transform){
+            RemoveTool();
+            // Turn off burner and stop timer
+        }
+        
         if(cookingTool != null)
         {
+            if(cookingTool.IsCooking()){
+                // Turn stove on 
+            }
             Debug.Log(cookingTool);
         }
     }
@@ -30,13 +39,11 @@ public class Stove : Appliance
             if(givenItem is Kitchenware){
                 return true;
             }
-        }else{
-            if(givenItem is Ingredient){
-                return true;
-            }
         }
-        // if(givenItem is Kitchenware){
-        //     return true;
+        // else{
+        //     if(givenItem is Ingredient){
+        //         return true;
+        //     }
         // }
         return false;
     }
@@ -44,19 +51,20 @@ public class Stove : Appliance
     protected override void HandleItem(Item givenItem)
     {
         cookingTool = (Kitchenware) givenItem;
+        cookingTool.PlaceOnAppliance(this);
+        
+        
         cookingTool.gameObject.transform.parent = itemHolder;
         cookingTool.gameObject.transform.position = itemHolder.position;
         cookingTool.ActivateInteraction();
         isHolding = true;
     }
 
-    void HandleIngredient(Item givenItem)
+    public void RemoveTool()
     {
-
-    }
-
-    public void RemoveItem()
-    {
+        Debug.Log("Stove not holding anything anymore");
+        cookingTool.RemoveFromAppliance();
+        isHolding = false;
         cookingTool = null;
     }
 

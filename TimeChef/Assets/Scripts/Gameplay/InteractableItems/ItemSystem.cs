@@ -48,7 +48,7 @@ public class ItemSystem : MonoBehaviour
                 currItem.ActivateInteraction();
                 currItem = null;
             }
-            
+            Debug.Log("Carrying item");
 
         }
         //else{

@@ -6,7 +6,8 @@ public abstract class Appliance : MonoBehaviour
 {
     protected Item interactedItem;
     public float processingTime;
-    private bool isProcessing = false;
+    protected bool isProcessing = false;
+    protected bool isHolding = false;
 
     
     // Start is called before the first frame update
@@ -22,15 +23,6 @@ public abstract class Appliance : MonoBehaviour
             //Start a timer here 
         }
     }
-
-    // void OnCollisionStay2D(Collision2D col)
-    // {
-    //     if(col.collider.gameObject.tag == "Agent"){
-    //         Debug.Log(col.collider.gameObject.tag);
-    //         ItemSystem agentItems = col.collider.gameObject.GetComponent<ItemSystem>();
-            
-    //     }
-    // }
 
     protected abstract void Action();
     protected abstract bool WillAcceptItem(Item givenItem);
