@@ -12,10 +12,14 @@ public class Kitchenware : Item
 
     private bool isCooking = false;
     private bool isOnAppliance = false;
+    // Status of cooked food that is in it
+    private bool onHold = false;
+    
     public int numAcceptedIngredients;
 
     private float cookingTime;
-    private float currTime = 0f;
+    // This will store the current time at the timer when the pan was removed from the stove
+    private float currTime;
 
     private Timer timer;
     
@@ -45,29 +49,23 @@ public class Kitchenware : Item
                 IngredientSynthesis();
             }
         }
-        // if(isCooking && currTime >= cookingTime){
-        //     // Ding sound
-        //     // Indicate that the dish is done 
-        //     // Call a function that creates the dish
-        //     Debug.Log("It's time to take the dish");
-        // }
     }
 
+    // Add an ingredient to the list
     public void AddIngredient(Ingredient ingredient)
     {
-        ingredients.Add(ingredient);
-        if(isCooking){
-            // Reset the counter back to 0
-            timer.Reset();
-        }
-        Debug.Log(ingredients.Count);
-        foreach(Ingredient ing in ingredients)
-        {
-            Debug.Log(ing.ingredientName);
+        if(ingredients.Count < numAcceptedIngredients){
+            ingredients.Add(ingredient);
+            if(isCooking){
+                // Reset the counter back to 0
+                timer.Reset();
+            }
+            
         }
     }
 
     // Combination of ingredients on the pan/pot to produce a new ingredient
+    // This might be a function for a plate object instead of putting it in pan
     public void IngredientSynthesis()
     {
         // Get the names of the ingredients
@@ -94,15 +92,12 @@ public class Kitchenware : Item
         
     }
 
-    public bool isBusy()
-    {
-        return isCooking;
-    }
-
+    // Checks whether the pan is currently placed on an appliance
     public bool OnAppliance()
     {
         return isOnAppliance;
     }
+
 
     public void RemoveFromAppliance()
     {
@@ -112,16 +107,17 @@ public class Kitchenware : Item
         if(!isCooking){
             cookingTime = 0;
         }else{
-            // if(timer.IsTimerFinished()){
-
-            // }
+            // Stop the timer since the pan was removed in the middle of cooking
             Debug.Log("Pan was still cooking when it was removed from stove");
             timer.Deactivate();
+            currTime = timer.GetCurrTime();
             isCooking = false;
+            onHold = true;
         }
         Debug.Log("Tool removed from appliance");
     }
 
+    // Place the pan on an appliance
     public void PlaceOnAppliance(Appliance appliance)
     {
         isOnAppliance = true;
@@ -130,11 +126,13 @@ public class Kitchenware : Item
 
     }
 
+    // Checks whether this item can accept anymore ingredients
     public bool isFullCapacity()
     {
         return ingredients.Count == numAcceptedIngredients;
     }
 
+    // Checks whether the food in the pan is still cooking or not
     public bool IsCooking()
     {
         return isCooking;
@@ -142,8 +140,16 @@ public class Kitchenware : Item
 
     public void InitiateTimer()
     {
-        timer.SetDuration(cookingTime);
+        timer.SetDuration(cookingTime, onHold);
+        if(onHold){
+            onHold = false;
+        }
         timer.Activate();
+    }
+
+    public bool IsHoldingACookedItem()
+    {
+        return timer.IsTimerFinished();
     }
 
 }

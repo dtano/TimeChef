@@ -18,7 +18,6 @@ public class Stove : Appliance
     // Update is called once per frame
     protected override void Update()
     {
-        // Stove has to check whether or not the pan or pot has received any ingredients
         if(isHolding && cookingTool.transform.parent != itemHolder.transform){
             RemoveTool();
             // Turn off burner and stop timer
@@ -47,7 +46,7 @@ public class Stove : Appliance
         // }
         return false;
     }
-
+    
     protected override void HandleItem(Item givenItem)
     {
         cookingTool = (Kitchenware) givenItem;
