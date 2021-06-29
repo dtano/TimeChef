@@ -89,10 +89,7 @@ public class Timer : MonoBehaviour
     public void Reset()
     {
         currTime = 0;
-        //timerOn = false;
-        if(!timerOn){
-            timerOn = true;
-        }
+        timerOn = false;
         timeOver = false;
     }
 

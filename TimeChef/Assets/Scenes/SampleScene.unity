@@ -711,6 +711,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 558081725656770965, guid: 8ea5c89f96023e643953b2508b833a8f, type: 3}
+      propertyPath: burnThreshold
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 558081725656770968, guid: 8ea5c89f96023e643953b2508b833a8f, type: 3}
       propertyPath: m_Name
       value: Pan

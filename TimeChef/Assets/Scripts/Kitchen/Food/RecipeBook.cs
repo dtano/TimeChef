@@ -12,12 +12,18 @@ public class RecipeBook : MonoBehaviour
 
     // Maps ingredients to the possible dishes it can create
     public Dictionary<string, string[]> ingredientDishMapping;
+
+    public Dictionary<string, Sprite> dishSprites;
     
     // // Dishnames and ingredientsNeeded need to have the same length
     // public string[] dishNames;
     // // Ingredients will be combined with each other into one string. e.g., pan burger, chopped lettuce, chopped tomato, bun
     // public string[] ingredientsNeeded;
-
+    // public struct DishSprites {
+    //     public string name;
+    //     public Sprite sprite;
+    // }
+    // public DishSprites[] dishSprites;
 
     private void Awake()
     {
@@ -53,6 +59,14 @@ public class RecipeBook : MonoBehaviour
             {"tomato", new string[] {"Tomato Soup"}},
             {"chopped tomato", new string[]{"Garden Salad"}},
             {"lettuce", new string[]{"Garden Salad"}}
+        };
+
+        // Gonna have to do a resources load
+        dishSprites = new Dictionary<string, Sprite>(){
+            {"French Onion Soup", Resources.Load("Sprites/FrenchOnionSoup") as Sprite},
+            {"Garden Salad", Resources.Load("Sprites/GardenSalad") as Sprite},
+            {"Potato Salad", Resources.Load("Sprites/PotatoSalad") as Sprite},
+            {"Tomato Soup", Resources.Load("Sprites/TomatoSoup") as Sprite},
         };
     }
 }

@@ -130,7 +130,13 @@ public class Kitchenware : Item
     {
         if(timer.IsTimerFinished()){
             // Count the seconds the food is in the pan after its supposed to be taken
-
+            float currTime = timer.GetCurrTime();
+            if(currTime > cookingTime + burnThreshold){
+                Debug.Log("Food is burnt");
+                // Force the timer to finish
+                timer.Deactivate();
+                // Show some burnt UI on top of the item
+            }
         }
     }
 
