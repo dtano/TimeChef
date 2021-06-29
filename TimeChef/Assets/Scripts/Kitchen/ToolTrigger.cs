@@ -40,6 +40,12 @@ public class ToolTrigger : InteractionTrigger
                 agentItems.Dispose();
             }
 
+        }else if(carriedItem is Plate){
+            // Only allow to transfer to dish if the food in the pan is at least cooked
+            if(tool.IsHoldingACookedItem()){
+                // Then transfer the cooked food to the dish
+                tool.TransferContents((Plate) carriedItem);
+            }
         }
     }
 }

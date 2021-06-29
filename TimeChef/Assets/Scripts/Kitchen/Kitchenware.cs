@@ -12,6 +12,7 @@ public class Kitchenware : Item
 
     private bool isCooking = false;
     private bool isOnAppliance = false;
+    
     // Status of cooked food that is in it
     private bool onHold = false;
     
@@ -48,14 +49,15 @@ public class Kitchenware : Item
             //Debug.Log("Initiate timer");
         }
 
+        // Checks that are done when the kitchenware is in the process of cooking
         if(isCooking){
+            // Then food is finished
             if(timer.IsTimerFinished()){
-                // Then food is finished
-                IngredientSynthesis();
+                // Now keep track of how long the food is left to cook after its cooking time
+                BurnCheck();
             }
         }
 
-        BurnCheck();
 
     }
 
@@ -74,8 +76,11 @@ public class Kitchenware : Item
 
     // Combination of ingredients on the pan/pot to produce a new ingredient
     // This might be a function for a plate object instead of putting it in pan
-    public void IngredientSynthesis()
+    public string IngredientSynthesis()
     {
+        foreach(Ingredient ing in ingredients){
+            ing.Cook();
+        }
         // Get the names of the ingredients
         List<string> ingredientNames = new List<string>();
         foreach(Ingredient ing in ingredients){
@@ -90,14 +95,15 @@ public class Kitchenware : Item
                 if(isEqual){
                     // Found a recipe for this combination
                     Debug.Log("Found a recipe");
-                    return;
+                    return entry.Key;
                 }
             }
 
         }
 
-        Debug.Log("No recipe with this combo");
         
+        Debug.Log("No recipe with this combo");
+        return null;
     }
 
     // Checks whether the pan is currently placed on an appliance
@@ -128,15 +134,17 @@ public class Kitchenware : Item
     // Checks whether the food in the pan or pot is burnt
     public void BurnCheck()
     {
-        if(timer.IsTimerFinished()){
-            // Count the seconds the food is in the pan after its supposed to be taken
-            float currTime = timer.GetCurrTime();
-            if(currTime > cookingTime + burnThreshold){
-                Debug.Log("Food is burnt");
-                // Force the timer to finish
-                timer.Deactivate();
-                // Show some burnt UI on top of the item
+        // Count the seconds the food is in the pan after its supposed to be taken
+        float currTime = timer.GetCurrTime();
+        if(currTime > cookingTime + burnThreshold){
+            foreach(Ingredient ing in ingredients){
+                ing.Overcook();
             }
+            Debug.Log("Food is burnt");
+
+            // Force the timer to finish
+            timer.Deactivate();
+            // Show some burnt UI on top of the item
         }
     }
 
@@ -173,6 +181,43 @@ public class Kitchenware : Item
     public bool IsHoldingACookedItem()
     {
         return timer.IsTimerFinished();
+    }
+
+    public void Reset()
+    {
+        ingredients.Clear();
+        onHold = false;
+        isCooking = false;
+
+        // Reset the timer
+        timer.Reset();
+    }
+
+    // Moves any cooked item from the pan to a dish
+    public void TransferContents(Plate plate)
+    {
+        //plate.AddMultipleIngredients(ingredients);
+        // Have to check whether kitchenware was able to synthesize a new dish or not
+        
+        if(!plate.IsPlateDirty() && ingredients.Count > 0){
+            string dishName = IngredientSynthesis();
+            if(dishName != null){
+                Debug.Log("Dish in kitchenware successfully transferred to plate");
+                plate.SetDish(dishName);
+            }else{
+                if(ingredients.Count == numAcceptedIngredients){
+                    Debug.Log("Failed combination while cooking");
+                    plate.SetDish("muck");
+                }else{
+                    // Means we gotta transfer ingredients
+                    Debug.Log("Transfer remaining ingredients to plate");
+                    plate.AddMultipleIngredients(ingredients);
+                }
+            }
+
+            Debug.Log("Food moved to dish");
+            Reset();
+        }
     }
 
 }
