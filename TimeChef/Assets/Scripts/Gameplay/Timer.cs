@@ -27,12 +27,14 @@ public class Timer : MonoBehaviour
         timeSlider.transform.position = Camera.main.WorldToScreenPoint(transform.position + offset);
         
         if(timerOn){
-            currTime -= Time.deltaTime;
+            currTime += Time.deltaTime;
 
-            if(Mathf.Round(currTime) <= 0){
+            if(Mathf.Round(currTime) >= duration){
                 Debug.Log("Time's up, food's done cooking");
                 timeOver = true;
-                timeSlider.value = 0;
+                timeSlider.value = duration;
+                Debug.Log(currTime);
+                // Need to do some sort of check here for if the food has reached burning threshold
                 //timerOn = false;
                 //currTime = duration;
             }else{
@@ -48,7 +50,7 @@ public class Timer : MonoBehaviour
         timeSlider.maxValue = duration;
         if(!onHold){
             //Debug.Log("Pan was not on hold");
-            currTime = duration;
+            currTime = 0;
             timeSlider.value = duration;
         }else{
             Debug.Log("Pan was on hold");
@@ -60,10 +62,12 @@ public class Timer : MonoBehaviour
     public void Activate()
     {
         timerOn = true;
+        ShowTimer();
     }
 
     public void Deactivate()
     {
+        HideTimer();
         timerOn = false;
     }
 
@@ -84,11 +88,21 @@ public class Timer : MonoBehaviour
 
     public void Reset()
     {
-        currTime = duration;
+        currTime = 0;
         //timerOn = false;
         if(!timerOn){
             timerOn = true;
         }
         timeOver = false;
+    }
+
+    public void HideTimer()
+    {
+        timeSlider.gameObject.SetActive(false);
+    }
+
+    public void ShowTimer()
+    {
+        timeSlider.gameObject.SetActive(true);
     }
 }

@@ -40,8 +40,6 @@ public class ToolTrigger : InteractionTrigger
                 agentItems.Dispose();
             }
 
-        }else if(carriedItem is Kitchenware){
-            // Check whether the kitchenware object is holding a cooked product no matter what it is
         }
     }
 }

@@ -46,7 +46,7 @@ public class Stove : Appliance
         // }
         return false;
     }
-    
+
     protected override void HandleItem(Item givenItem)
     {
         cookingTool = (Kitchenware) givenItem;

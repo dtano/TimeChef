@@ -18,6 +18,8 @@ public class Kitchenware : Item
     public int numAcceptedIngredients;
 
     private float cookingTime;
+    // The maximum time after food is cooked before it burns
+    public float burnThreshold;
     // This will store the current time at the timer when the pan was removed from the stove
     private float currTime;
 
@@ -30,6 +32,9 @@ public class Kitchenware : Item
         ingredients = new List<Ingredient>();
         acceptedIngredients = new List<string>();
         timer = GetComponent<Timer>();
+
+        // Make sure the cooking timer is not visible at the start
+        timer.Deactivate();
     }
 
     // Update is called once per frame
@@ -49,6 +54,9 @@ public class Kitchenware : Item
                 IngredientSynthesis();
             }
         }
+
+        BurnCheck();
+
     }
 
     // Add an ingredient to the list
@@ -115,6 +123,15 @@ public class Kitchenware : Item
             onHold = true;
         }
         Debug.Log("Tool removed from appliance");
+    }
+
+    // Checks whether the food in the pan or pot is burnt
+    public void BurnCheck()
+    {
+        if(timer.IsTimerFinished()){
+            // Count the seconds the food is in the pan after its supposed to be taken
+
+        }
     }
 
     // Place the pan on an appliance
