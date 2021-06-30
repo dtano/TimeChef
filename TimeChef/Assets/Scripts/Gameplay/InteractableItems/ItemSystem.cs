@@ -92,6 +92,11 @@ public class ItemSystem : MonoBehaviour
         currItem.transform.position = carryPoint.position;
         currItem.GetComponent<Rigidbody2D>().isKinematic = true;
         currItem.GetComponent<Collider2D>().enabled = false;
+
+        SpriteRenderer sr = currItem.gameObject.GetComponent<SpriteRenderer>();
+        //sr.sortingOrder = GetComponent<SpriteRenderer>().sortingOrder + 1;
+        sr.sortingOrder += 1;
+        
         detectedItem = null;
     } 
 
@@ -112,6 +117,8 @@ public class ItemSystem : MonoBehaviour
     public void DropItem()
     {
         currItem.gameObject.GetComponent<Collider2D>().enabled = true;
+        SpriteRenderer sr = currItem.gameObject.GetComponent<SpriteRenderer>();
+        sr.sortingOrder -= 1;
         currItem = null;
         // Change player animation back to normal hands
     }

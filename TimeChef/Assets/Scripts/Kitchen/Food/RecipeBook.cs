@@ -14,6 +14,7 @@ public class RecipeBook : MonoBehaviour
     public Dictionary<string, string[]> ingredientDishMapping;
 
     public Dictionary<string, Sprite> dishSprites;
+    //public Dictionary<string, string> dishSprites;
     
     // // Dishnames and ingredientsNeeded need to have the same length
     // public string[] dishNames;
@@ -37,7 +38,7 @@ public class RecipeBook : MonoBehaviour
     void Start()
     {
         recipes = new Dictionary<string, string[]>(){
-            {"French Onion Soup", new string[] {"onion", "onion", "onion"}},
+            {"Onion Soup", new string[] {"onion", "onion", "onion"}},
             {"Garden Salad", new string[] {"lettuce", "chopped tomato"}},
             {"Potato Salad", new string[] {"boiled potato", "chopped onion", "chopped tomato"}},
             {"Tomato Soup", new string[] {"tomato", "tomato", "tomato"}}
@@ -54,7 +55,7 @@ public class RecipeBook : MonoBehaviour
 
         ingredientDishMapping = new Dictionary<string, string[]>(){
             {"chopped potato", new string[] {"Potato Salad"}},
-            {"onion", new string[] {"French Onion Soup"}},
+            {"onion", new string[] {"Onion Soup"}},
             {"chopped onion", new string[] {"Potato Salad"}},
             {"tomato", new string[] {"Tomato Soup"}},
             {"chopped tomato", new string[]{"Garden Salad"}},
@@ -63,10 +64,12 @@ public class RecipeBook : MonoBehaviour
 
         // Gonna have to do a resources load
         dishSprites = new Dictionary<string, Sprite>(){
-            {"French Onion Soup", Resources.Load("Sprites/FrenchOnionSoup") as Sprite},
-            {"Garden Salad", Resources.Load("Sprites/GardenSalad") as Sprite},
-            {"Potato Salad", Resources.Load("Sprites/PotatoSalad") as Sprite},
-            {"Tomato Soup", Resources.Load("Sprites/TomatoSoup") as Sprite},
+            {"Onion Soup", Resources.Load<Sprite>("Sprites/Dishes/OnionSoup")},
+            {"Garden Salad", Resources.Load<Sprite>("Sprites/Dishes/GardenSalad")},
+            {"Potato Salad", Resources.Load<Sprite>("Sprites/Dishes/PotatoSalad")},
+            {"Tomato Soup", Resources.Load<Sprite>("Sprites/Dishes/TomatoSoup")},
         };
+
+        
     }
 }

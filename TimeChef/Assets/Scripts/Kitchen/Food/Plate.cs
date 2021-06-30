@@ -13,9 +13,13 @@ public class Plate : Item
     // Signifies whether a proper dish is being carried by this dish
     private bool holdCompleteDish = false;
     private bool isFailed = false;
+    
     private bool isDirty = false;
     private int maxContents = 3;
     private List<Ingredient> ingredients;
+
+    public Sprite dirtySprite;
+    public Sprite cleanSprite;
 
     // This can be filled when a complete dish is either tranferred here or created
     private string dishName;
@@ -29,6 +33,12 @@ public class Plate : Item
     {
         ingredients = new List<Ingredient>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if(isDirty){
+            spriteRenderer.sprite = dirtySprite;
+        }else{
+            spriteRenderer.sprite = cleanSprite;
+        }
     }
 
     // Update is called once per frame
@@ -108,6 +118,7 @@ public class Plate : Item
         if(RecipeBook._instance.recipes.ContainsKey(dishName)){
             // Then its a valid dish
             this.dishName = dishName;
+            Debug.Log("Valid dish plated");
             spriteRenderer.sprite = RecipeBook._instance.dishSprites[dishName];
             
         }else{
@@ -130,6 +141,19 @@ public class Plate : Item
     public bool IsFull()
     {
         return ingredients.Count == maxContents;
+    }
+
+    // Dishwasher will call this function to change the plate's dirty status
+    public void Wash()
+    {
+        isDirty = false;
+        spriteRenderer.sprite = cleanSprite;
+    }
+
+    public void MakeDirty()
+    {
+        isDirty = true;
+        spriteRenderer.sprite = dirtySprite;
     }
 
 
