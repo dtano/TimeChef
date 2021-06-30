@@ -4,26 +4,47 @@ using UnityEngine;
 
 public class TrashCan : Appliance
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    protected override void Update()
-    {
-        
-    }
-
     protected override bool WillAcceptItem(Item givenItem)
     {
-        throw new System.NotImplementedException();
+        // Can accept ingredients (fresh, whole, burnt, spoiled)
+        // Kitchenware containing food, plate containing food. I think item is fine
+        if(givenItem is Ingredient){
+            return true;
+        }else if(givenItem is Kitchenware){
+            // Check whether it has anything in it
+            Kitchenware tool = (Kitchenware) givenItem;
+            if(!tool.IsEmpty()){
+                return true;
+            }
+        }else if(givenItem is Plate){
+            Plate plate = (Plate) givenItem;
+            if(!plate.IsEmpty()){
+                return true;
+            }
+        }
+        return false;
+        // if(givenItem is Ingredient || givenItem is Kitchenware || givenItem is Plate){
+        //     return true;
+        // }
+
+        // return false;
     }
 
     protected override void HandleItem(Item givenItem)
     {
-        throw new System.NotImplementedException();
+        givenItem.Reset();
+        // Play trash sound effect
+        Debug.Log("item has been disposed off or reset");
+    }
+
+    protected override void AcceptItem(ItemSystem agentItems)
+    {
+        if(agentItems.GetCurrItem() is Ingredient){
+            HandleItem(agentItems.GetCurrItem());
+            agentItems.DropItem();
+        }else{
+            HandleItem(agentItems.GetCurrItem());
+        }
     }
 
     protected override void Action()

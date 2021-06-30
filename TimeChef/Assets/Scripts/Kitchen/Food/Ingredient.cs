@@ -65,6 +65,12 @@ public class Ingredient : Item
         }
     }
 
+    public override void Reset()
+    {
+        Destroy(gameObject);
+        //throw new System.NotImplementedException();
+    }
+
     public void Cook()
     {
         isCooked = true;

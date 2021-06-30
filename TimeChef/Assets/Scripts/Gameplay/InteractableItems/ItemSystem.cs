@@ -116,10 +116,14 @@ public class ItemSystem : MonoBehaviour
 
     public void DropItem()
     {
-        currItem.gameObject.GetComponent<Collider2D>().enabled = true;
-        SpriteRenderer sr = currItem.gameObject.GetComponent<SpriteRenderer>();
-        sr.sortingOrder -= 1;
-        currItem = null;
+        if(currItem != null){
+            currItem.gameObject.GetComponent<Collider2D>().enabled = true;
+            SpriteRenderer sr = currItem.gameObject.GetComponent<SpriteRenderer>();
+            sr.sortingOrder -= 1;
+            currItem = null;
+        }else{
+            Debug.Log("Curr item is null already");
+        }
         // Change player animation back to normal hands
     }
 
@@ -128,6 +132,7 @@ public class ItemSystem : MonoBehaviour
         if(currItem != null){
             Destroy(currItem.gameObject);
             currItem = null;
+            // Change player animation back to normal hands
         }
     }
 

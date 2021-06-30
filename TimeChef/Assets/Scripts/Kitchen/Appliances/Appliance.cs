@@ -47,7 +47,7 @@ public abstract class Appliance : MonoBehaviour
             }
     }
 
-    void AcceptItem(ItemSystem agentItems)
+    protected virtual void AcceptItem(ItemSystem agentItems)
     {
         HandleItem(agentItems.GetCurrItem());
         agentItems.DropItem();

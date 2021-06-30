@@ -133,6 +133,16 @@ public class Plate : Item
         
     }
 
+    // Clear ingredients and change sprite back
+    public override void Reset()
+    {
+        ingredients.Clear();
+        isFailed = false;
+        holdCompleteDish = false;
+        dishName = null;
+        spriteRenderer.sprite = cleanSprite;
+    }
+
     public bool IsPlateDirty()
     {
         return isDirty;
@@ -141,6 +151,15 @@ public class Plate : Item
     public bool IsFull()
     {
         return ingredients.Count == maxContents;
+    }
+
+    public bool IsEmpty()
+    {
+        if(ingredients.Count == 0 && !holdCompleteDish){
+            // Means that its empty
+            return true;
+        }
+        return false;
     }
 
     // Dishwasher will call this function to change the plate's dirty status

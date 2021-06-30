@@ -183,7 +183,12 @@ public class Kitchenware : Item
         return timer.IsTimerFinished();
     }
 
-    public void Reset()
+    public bool IsEmpty()
+    {
+        return ingredients.Count > 0;
+    }
+
+    public override void Reset()
     {
         ingredients.Clear();
         onHold = false;
@@ -191,6 +196,9 @@ public class Kitchenware : Item
 
         // Reset the timer
         timer.FullReset();
+
+        // Reset sprite too
+        
     }
 
     // Moves any cooked item from the pan to a dish
