@@ -97,6 +97,7 @@ public class ItemSystem : MonoBehaviour
         //sr.sortingOrder = GetComponent<SpriteRenderer>().sortingOrder + 1;
         sr.sortingOrder += 1;
         
+        // Change animation to pick up and play pick up sound effect
         detectedItem = null;
     } 
 
@@ -112,6 +113,12 @@ public class ItemSystem : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void ForcePickUp(GameObject item)
+    {
+        detectedItem = item;
+        PickUp();
     }
 
     public void DropItem()
