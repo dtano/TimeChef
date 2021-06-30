@@ -68,7 +68,7 @@ public class Kitchenware : Item
             ingredients.Add(ingredient);
             if(isCooking){
                 // Reset the counter back to 0
-                timer.Reset();
+                timer.ResetTime();
             }
             
         }
@@ -190,7 +190,7 @@ public class Kitchenware : Item
         isCooking = false;
 
         // Reset the timer
-        timer.Reset();
+        timer.FullReset();
     }
 
     // Moves any cooked item from the pan to a dish

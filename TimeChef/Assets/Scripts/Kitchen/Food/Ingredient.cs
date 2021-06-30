@@ -84,4 +84,9 @@ public class Ingredient : Item
     {
         return isBurnt;
     }
+
+    public bool IsSpoiled()
+    {
+        return !isFresh;
+    }
 }

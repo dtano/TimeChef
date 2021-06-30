@@ -83,13 +83,15 @@ public class Plate : Item
         }
     }
 
-    public void AddIngredient(Ingredient ingredient)
+    public bool AddIngredient(Ingredient ingredient)
     {
         if(ingredients.Count < maxContents){
             ingredients.Add(ingredient);
             // Everytime you add an ingredient, try to see if its a proper combination
             IngredientSynthesis();
+            return true;
         }
+        return false;
     }
 
     public void AddMultipleIngredients(List<Ingredient> newIngredients)
@@ -123,6 +125,11 @@ public class Plate : Item
     public bool IsPlateDirty()
     {
         return isDirty;
+    }
+
+    public bool IsFull()
+    {
+        return ingredients.Count == maxContents;
     }
 
 

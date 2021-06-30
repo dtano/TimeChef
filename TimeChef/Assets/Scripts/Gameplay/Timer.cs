@@ -86,12 +86,18 @@ public class Timer : MonoBehaviour
         return currTime;
     }
 
-    public void Reset()
+    public void FullReset()
     {
         currTime = 0;
         duration = 0;
         timerOn = false;
         timeOver = false;
+        HideTimer();
+    }
+
+    public void ResetTime()
+    {
+        currTime = 0;
     }
 
     public void HideTimer()
