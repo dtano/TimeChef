@@ -8,6 +8,7 @@ public class ControlledMovement : MonoBehaviour
     private float currSpeed = 0f;
     private Rigidbody2D rb;
     private Animator animator;
+    private ItemSystem itemSystem;
 
     public Transform detectionPoint;
 
@@ -17,7 +18,8 @@ public class ControlledMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();    
+        animator = GetComponent<Animator>(); 
+        itemSystem = GetComponent<ItemSystem>();   
     }
 
     // Update is called once per frame
@@ -47,6 +49,7 @@ public class ControlledMovement : MonoBehaviour
     void Animate()
     {
         // This check needed to fix bug where the player's direction resets when they stop moving
+        animator.SetBool("IsCarrying", itemSystem.GetCurrItem() != null);
         if(movement != Vector2.zero){
             animator.SetFloat("Horizontal", movement.x);
             animator.SetFloat("Vertical", movement.y);
