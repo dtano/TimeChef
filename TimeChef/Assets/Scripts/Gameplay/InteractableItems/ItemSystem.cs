@@ -143,11 +143,11 @@ public class ItemSystem : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawSphere(detectionPoint.position, detectionRadius);
-    }
+    // private void OnDrawGizmosSelected()
+    // {
+    //     Gizmos.color = Color.green;
+    //     Gizmos.DrawSphere(detectionPoint.position, detectionRadius);
+    // }
 
     public bool isCarrying()
     {

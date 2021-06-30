@@ -16,7 +16,8 @@ public class ControlledMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();    
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();    
     }
 
     // Update is called once per frame
@@ -28,6 +29,7 @@ public class ControlledMovement : MonoBehaviour
         float angle = Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg;
         //Debug.Log(angle);
         //detectionPoint.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        Animate();
 
         if(movement.x != 0 || movement.y != 0){
             currSpeed = 1;
@@ -40,5 +42,16 @@ public class ControlledMovement : MonoBehaviour
     void FixedUpdate()
     {
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+    }
+
+    void Animate()
+    {
+        // This check needed to fix bug where the player's direction resets when they stop moving
+        if(movement != Vector2.zero){
+            animator.SetFloat("Horizontal", movement.x);
+            animator.SetFloat("Vertical", movement.y);
+        }
+        
+        animator.SetFloat("Magnitude", movement.magnitude);
     }
 }
