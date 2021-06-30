@@ -48,7 +48,6 @@ public class ItemSystem : MonoBehaviour
                 currItem.ActivateInteraction();
                 currItem = null;
             }
-            Debug.Log("Carrying item");
 
         }
         //else{
@@ -60,27 +59,28 @@ public class ItemSystem : MonoBehaviour
 
     bool DetectItem()
     {
-        // Collider2D obj = Physics2D.OverlapCircle(detectionPoint.position, detectionRadius, detectionLayer);
-        // if(obj == null){
-        //     detectedItem = null;
-        //     return false;
-        // }else{
-        //     if(obj.tag == "Item"){
-        //         Debug.Log("Detected item");
-        //         detectedItem = obj.gameObject;
-        //         return true;
-        //     }
-        // }
-
-        // Raycast method
-        RaycastHit2D itemCheck = Physics2D.Raycast(detectionPoint.position, detectionPoint.right, detectionRadius, detectionLayer);
-        Debug.DrawRay(detectionPoint.position, detectionPoint.right, Color.green);
-        if(itemCheck.collider != null && itemCheck.collider.tag == "Item"){
-            Debug.Log("Detected item");
-            detectedItem = itemCheck.collider.gameObject;
-            return true;
+        Collider2D obj = Physics2D.OverlapCircle(detectionPoint.position, detectionRadius, detectionLayer);
+        if(obj == null){
+            detectedItem = null;
+            return false;
+        }else{
+            if(obj.tag == "Item"){
+                Debug.Log("Detected item");
+                detectedItem = obj.gameObject;
+                return true;
+            }
         }
         return false;
+
+        // // Raycast method
+        // RaycastHit2D itemCheck = Physics2D.Raycast(detectionPoint.position, detectionPoint.right, detectionRadius, detectionLayer);
+        // Debug.DrawRay(detectionPoint.position, detectionPoint.right, Color.green);
+        // if(itemCheck.collider != null && itemCheck.collider.tag == "Item"){
+        //     Debug.Log("Detected item");
+        //     detectedItem = itemCheck.collider.gameObject;
+        //     return true;
+        // }
+        // return false;
     }
 
     
@@ -92,24 +92,38 @@ public class ItemSystem : MonoBehaviour
         currItem.transform.position = carryPoint.position;
         currItem.GetComponent<Rigidbody2D>().isKinematic = true;
         currItem.GetComponent<Collider2D>().enabled = false;
+
+        SpriteRenderer sr = currItem.gameObject.GetComponent<SpriteRenderer>();
+        //sr.sortingOrder = GetComponent<SpriteRenderer>().sortingOrder + 1;
+        sr.sortingOrder += 1;
+        
         detectedItem = null;
     } 
 
     // Receive an item from a spawner (In this case its gonna be the fridge)
-    public void GetItem(GameObject item)
+    public bool GetItem(GameObject item)
     {   
         // Only possible if there are no items being carried
+        // Detect item fails sometimes
         if(currItem == null && DetectItem()){
             detectedItem = item;
             // Pick up the item 
             PickUp();
+            return true;
         }
+        return false;
     }
 
     public void DropItem()
     {
-        currItem.gameObject.GetComponent<Collider2D>().enabled = true;
-        currItem = null;
+        if(currItem != null){
+            currItem.gameObject.GetComponent<Collider2D>().enabled = true;
+            SpriteRenderer sr = currItem.gameObject.GetComponent<SpriteRenderer>();
+            sr.sortingOrder -= 1;
+            currItem = null;
+        }else{
+            Debug.Log("Curr item is null already");
+        }
         // Change player animation back to normal hands
     }
 
@@ -118,14 +132,15 @@ public class ItemSystem : MonoBehaviour
         if(currItem != null){
             Destroy(currItem.gameObject);
             currItem = null;
+            // Change player animation back to normal hands
         }
     }
 
-    // private void OnDrawGizmosSelected()
-    // {
-    //     Gizmos.color = Color.green;
-    //     Gizmos.DrawSphere(detectionPoint.position, detectionRadius);
-    // }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(detectionPoint.position, detectionRadius);
+    }
 
     public bool isCarrying()
     {

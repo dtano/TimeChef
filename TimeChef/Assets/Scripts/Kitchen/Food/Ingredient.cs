@@ -8,6 +8,11 @@ public class Ingredient : Item
     private bool isProcessed = false;
     public float processTime;
     private float currTimer = 0f;
+
+    private bool isCooked = false;
+    private bool isBurnt = false;
+
+    public string ingredientName;
     // Needs a variable that 
 
     public enum IngredientType{
@@ -54,8 +59,40 @@ public class Ingredient : Item
             Debug.Log("Invalied transformation");
         }else{
             ingredientType = newType;
+            // Change name of the ingredient to reflect the new type
             // Change sprite
             Debug.Log("Ingredient has been transformed");
         }
+    }
+
+    public override void Reset()
+    {
+        Destroy(gameObject);
+        //throw new System.NotImplementedException();
+    }
+
+    public void Cook()
+    {
+        isCooked = true;
+    }
+
+    public void Overcook()
+    {
+        isBurnt = true;
+    }
+
+    public bool IsCooked()
+    {
+        return isCooked;
+    }
+
+    public bool IsBurnt()
+    {
+        return isBurnt;
+    }
+
+    public bool IsSpoiled()
+    {
+        return !isFresh;
     }
 }

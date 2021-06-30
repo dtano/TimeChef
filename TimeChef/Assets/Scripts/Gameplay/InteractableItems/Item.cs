@@ -11,6 +11,8 @@ public abstract class Item : MonoBehaviour
 
     public InteractionType type;
     private InteractionTrigger triggerZone;
+
+    public abstract void Reset();
     // Start is called before the first frame update
     // void Start()
     // {

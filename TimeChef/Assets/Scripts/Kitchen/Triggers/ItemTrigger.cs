@@ -14,8 +14,10 @@ public class ItemTrigger : InteractionTrigger
     protected override void Interact()
     {
         if(Input.GetKeyDown(KeyCode.Space)){
-            agentItems.GetItem(transform.parent.gameObject);
-            Deactivate();
+            Debug.Log(transform.parent.gameObject.name);
+            if(agentItems.GetItem(transform.parent.gameObject)){
+                Deactivate();
+            }
         }
     }
 }
