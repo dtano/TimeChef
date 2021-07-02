@@ -15,6 +15,7 @@ public class ApplianceTrigger : InteractionTrigger
     protected override void Interact()
     {
         if(Input.GetKeyDown(KeyCode.E)){
+            Debug.Log("Interact!");
             appliance.UseAppliance(agentItems);
         }
     }

@@ -9,6 +9,7 @@ public class TrashCan : Appliance
         // Can accept ingredients (fresh, whole, burnt, spoiled)
         // Kitchenware containing food, plate containing food. I think item is fine
         if(givenItem is Ingredient){
+            Debug.Log("Trash can accepts this offering");
             return true;
         }else if(givenItem is Kitchenware){
             // Check whether it has anything in it

@@ -30,6 +30,7 @@ public abstract class Appliance : MonoBehaviour
 
     public void UseAppliance(ItemSystem agentItems)
     {
+        Debug.Log("Call use appliance");
         if(agentItems.isCarrying()){
                 Debug.Log("Player can use this appliance");
                 // Means that the player is able to use this appliance
@@ -42,9 +43,9 @@ public abstract class Appliance : MonoBehaviour
                     DeclineItem();
                 }
                 
-            }else{
-                Debug.Log("Can't use this application");
-            }
+        }else{
+            Debug.Log("Can't use this appliance");
+        }
     }
 
     protected virtual void AcceptItem(ItemSystem agentItems)

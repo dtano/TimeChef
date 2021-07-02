@@ -119,6 +119,7 @@ public class ItemSystem : MonoBehaviour
     {
         detectedItem = item;
         PickUp();
+        item.GetComponent<Item>().DeactivateInteraction();
     }
 
     public void DropItem()
