@@ -68,6 +68,7 @@ public class RecipeBook : MonoBehaviour
             {"Garden Salad", Resources.Load<Sprite>("Sprites/Dishes/GardenSalad")},
             {"Potato Salad", Resources.Load<Sprite>("Sprites/Dishes/PotatoSalad")},
             {"Tomato Soup", Resources.Load<Sprite>("Sprites/Dishes/TomatoSoup")},
+            {"Muck", Resources.Load<Sprite>("Sprites/Dishes/Muck")}
         };
 
         

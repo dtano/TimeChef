@@ -61,7 +61,9 @@ public class Plate : Item
             if(ing.IsBurnt()){
                 // This means no matter what the dish will be invalid
                 Debug.Log("Created muck");
-                // spriterenderer.sprite = "sprite of muck"
+
+                PlateFailedDish();
+                holdCompleteDish = true;
                 return;
             }
             ingredientNames.Add(ing.ingredientName);
@@ -86,9 +88,8 @@ public class Plate : Item
         // If we reach this part and the plate is holding 3 ingredients already,
         // it means that no matter what, the current combination is a bust
         if(ingredients.Count == 3){
-            Debug.Log("FAIL");
+            PlateFailedDish();
             holdCompleteDish = true;
-            isFailed = true;
             
         }
     }
@@ -124,13 +125,19 @@ public class Plate : Item
         }else{
             // Means that its muck
             Debug.Log("You plated muck");
-            this.dishName = "muck";
-            isFailed = true;
+            PlateFailedDish();
         }
         // What if the plate has some ingredients on it? Just override the ingredients
         ingredients.Clear();
         holdCompleteDish = true;
         
+    }
+
+    void PlateFailedDish()
+    {
+        this.dishName = "Muck";
+        spriteRenderer.sprite = RecipeBook._instance.dishSprites[dishName];
+        isFailed = true;
     }
 
     // Clear ingredients and change sprite back
