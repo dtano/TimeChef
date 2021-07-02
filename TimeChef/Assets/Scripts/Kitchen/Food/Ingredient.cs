@@ -81,6 +81,11 @@ public class Ingredient : Item
         isBurnt = true;
     }
 
+    public IngredientType GetIngType()
+    {
+        return ingredientType;
+    }
+
     public bool IsCooked()
     {
         return isCooked;

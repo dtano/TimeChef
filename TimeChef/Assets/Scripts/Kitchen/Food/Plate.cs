@@ -95,7 +95,7 @@ public class Plate : Item
 
     public bool AddIngredient(Ingredient ingredient)
     {
-        if(ingredients.Count < maxContents){
+        if(!IsFull()){
             ingredients.Add(ingredient);
             // Everytime you add an ingredient, try to see if its a proper combination
             IngredientSynthesis();
@@ -106,7 +106,7 @@ public class Plate : Item
 
     public void AddMultipleIngredients(List<Ingredient> newIngredients)
     {
-        if(newIngredients.Count + newIngredients.Count <= maxContents){
+        if(newIngredients.Count + newIngredients.Count <= maxContents && !holdCompleteDish){
             ingredients.AddRange(newIngredients);
             IngredientSynthesis();
         }
@@ -150,7 +150,7 @@ public class Plate : Item
 
     public bool IsFull()
     {
-        return ingredients.Count == maxContents;
+        return ingredients.Count == maxContents || holdCompleteDish;
     }
 
     public bool IsEmpty()

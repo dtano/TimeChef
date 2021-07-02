@@ -47,8 +47,11 @@ public class ItemSystem : MonoBehaviour
                 currItem.GetComponent<Collider2D>().enabled = true;
                 currItem.ActivateInteraction();
                 currItem = null;
+                Debug.Log("Dropped item");
             }
 
+        }else{
+            Debug.Log("Curr item is null");
         }
         //else{
         //     if(Input.GetKeyDown(KeyCode.Space)){
