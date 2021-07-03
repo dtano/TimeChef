@@ -11,6 +11,7 @@ public class OrderManager : MonoBehaviour
     private int numCompletedOrders;
 
     private Order currOrder;
+    private List<Order> orderSuite;
 
     //private string[] possibleDishes;
 
@@ -21,6 +22,8 @@ public class OrderManager : MonoBehaviour
 
     // How long the player has to serve as many orders as possible
     public float operationTime;
+    // How many orders a player can serve at a time
+    public int maxOrderSuiteLength;
     
     // This is where the player can serve their dishes
     public OrderWindow orderWindow;
@@ -33,6 +36,7 @@ public class OrderManager : MonoBehaviour
     void Start()
     {
         rand = new System.Random();
+        orderSuite = new List<Order>();
     }
 
     // Update is called once per frame
@@ -61,7 +65,7 @@ public class OrderManager : MonoBehaviour
             }
 
             // Check orders here
-            CheckOrders();
+            CheckFailedOrders();
         }
     }
 
@@ -70,11 +74,26 @@ public class OrderManager : MonoBehaviour
     {
         // Keep making new orders until completed orders is equal to total orders
         while(numCompletedOrders < numTotalOrders){
-            MakeNewOrder();
+            int upperBound = maxOrderSuiteLength;
+            // Need to make sure numOrders does not exceed the max number of orders that are gonna come out
+            if(numCompletedOrders + upperBound > numTotalOrders){
+                while(numCompletedOrders + upperBound > numTotalOrders || upperBound > 1){
+                    upperBound--;
+                }
+            }
+            int numOrders = rand.Next(1,upperBound + 1);
+            for(int i = 0; i < numOrders; i++){
+                MakeNewOrder();
+            }
+            //MakeNewOrder();
             // Check whether order suite is completed or not
-            while(currOrder != null){
+            // while(currOrder != null){
+            //     yield return null;
+            // }
+            while(orderSuite.Count > 0){
                 yield return null;
             }
+            orderSuite.Clear();
         }
 
     }
@@ -97,18 +116,31 @@ public class OrderManager : MonoBehaviour
         orderCounter++;
 
         currOrder = order;
+        orderSuite.Add(order);
 
 
     }
 
-    void CheckOrders()
+    void CheckFailedOrders()
     {
         // This means that nothing was submitted
-        if(currOrder != null && currOrder.FailedToServe()){
-            Debug.Log("Remove unfinished order");
-            numCompletedOrders+=1;
-            currOrder.EndOrder(false);
+        // if(currOrder != null && currOrder.FailedToServe()){
+        //     Debug.Log("Remove unfinished order");
+        //     numCompletedOrders+=1;
+        //     currOrder.EndOrder(false);
+        // }
+
+        if(orderSuite.Count > 0){
+            foreach(Order order in orderSuite){
+                if(order != null && order.FailedToServe()){
+                    Debug.Log("Remove unfinished order");
+                    numCompletedOrders+=1;
+                    order.EndOrder(false);
+                }
+            }
         }
+
+        orderSuite.RemoveAll(order => order == null);
     }
 
     GameObject InstantiateOrderObject()
@@ -135,11 +167,28 @@ public class OrderManager : MonoBehaviour
         //     // Order is correct
         //     orders.Dequeue().EndOrder(true);
         // }
-        if(currOrder.CheckDishAccuracy(submittedDishName)){
-            currOrder.EndOrder(true);
-        }else{
-            currOrder.EndOrder(false);
+        // if(currOrder.CheckDishAccuracy(submittedDishName)){
+        //     currOrder.EndOrder(true);
+        // }else{
+        //     currOrder.EndOrder(false);
+        // }
+        bool foundMatch = false;
+        foreach(Order order in orderSuite){
+            if(order.CheckDishAccuracy(submittedDishName)){
+                foundMatch = true;
+                order.EndOrder(true);
+                break;
+            }
         }
+        orderSuite.RemoveAll(order => order == null);
+
+        // If no match was found, then deem the first order a failure
+        if(!foundMatch && orderSuite.Count > 0){
+            orderSuite[0].EndOrder(false);
+            orderSuite.RemoveAt(0);
+        }
+        
+        
         numCompletedOrders++;
     }
 
