@@ -182,6 +182,11 @@ public class Plate : Item
         spriteRenderer.sprite = dirtySprite;
     }
 
+    public bool IsHoldingDish()
+    {
+        return holdCompleteDish;
+    }
+
 
 
 }

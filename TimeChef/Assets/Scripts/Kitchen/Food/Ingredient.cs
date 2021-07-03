@@ -17,7 +17,8 @@ public class Ingredient : Item
 
     public enum IngredientType{
         Chopped,
-        Whole
+        Whole,
+        Cooked
     }
 
     public IngredientType ingredientType;
@@ -59,6 +60,15 @@ public class Ingredient : Item
             Debug.Log("Invalied transformation");
         }else{
             ingredientType = newType;
+            switch(ingredientType){
+                case IngredientType.Chopped:
+                    ingredientName = "chopped " + ingredientName;
+                    Debug.Log(ingredientName);
+                    break;
+                case IngredientType.Cooked:
+                    ingredientName = "cooked " + ingredientName;
+                    break;
+            }
             // Change name of the ingredient to reflect the new type
             // Change sprite
             Debug.Log("Ingredient has been transformed");

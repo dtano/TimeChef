@@ -100,6 +100,7 @@ public class ChoppingBoard : Appliance
         isProcessing = false;
         isFinished = true;
         heldIngredient.TransformType(Ingredient.IngredientType.Chopped);
+        
         // Change sprite
         heldIngredient.ActivateInteraction();
         timer.Deactivate();

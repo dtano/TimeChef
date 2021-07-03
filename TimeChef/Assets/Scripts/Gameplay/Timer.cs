@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
-    private float duration;
-    private float currTime;
-    private bool timeOver = false;
-    private bool timerOn = false;
+    protected float duration;
+    protected float currTime;
+    protected bool timeOver = false;
+    protected bool timerOn = false;
 
     public Slider timeSlider;
     public Vector3 offset;
@@ -21,7 +21,7 @@ public class Timer : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         // Move the time slider based on where the tool is
         timeSlider.transform.position = Camera.main.WorldToScreenPoint(transform.position + offset);
@@ -44,7 +44,7 @@ public class Timer : MonoBehaviour
         }
     }
 
-    public void SetDuration(float duration, bool onHold)
+    public virtual void SetDuration(float duration, bool onHold)
     {
         this.duration = duration;
         timeSlider.maxValue = duration;
