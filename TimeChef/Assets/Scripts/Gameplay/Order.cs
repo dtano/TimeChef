@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class Order : MonoBehaviour
 {
@@ -17,6 +16,7 @@ public class Order : MonoBehaviour
 
     private bool inProgress = false;
     private bool isOrderInitialized = false;
+    private bool isFailed = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +29,8 @@ public class Order : MonoBehaviour
     {
         if(timer.IsTimerFinished()){
             Debug.Log("Player failed to serve on time");
-            EndOrder(false);
+            isFailed = true;
+            //EndOrder(false);
         }
         
         if(!inProgress && isOrderInitialized){
@@ -73,5 +74,10 @@ public class Order : MonoBehaviour
     public bool CheckDishAccuracy(string dishName)
     {
         return this.dishName == dishName;
+    }
+
+    public bool FailedToServe()
+    {
+        return isFailed;
     }
 }

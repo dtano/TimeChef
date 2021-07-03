@@ -63,10 +63,11 @@ public class Ingredient : Item
             switch(ingredientType){
                 case IngredientType.Chopped:
                     ingredientName = "chopped " + ingredientName;
-                    Debug.Log(ingredientName);
+                    // Change sprite
                     break;
                 case IngredientType.Cooked:
                     ingredientName = "cooked " + ingredientName;
+                    // Change sprite
                     break;
             }
             // Change name of the ingredient to reflect the new type

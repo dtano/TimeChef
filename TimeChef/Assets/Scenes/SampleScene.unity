@@ -787,7 +787,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c466303ca17caab4f9f325dab0380a33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numTotalOrders: 10
+  numTotalOrders: 2
   orderPrefab: {fileID: 3586040527988302122, guid: 7a118b96ca8ed91449019fbf9751e8de, type: 3}
   orderHolder: {fileID: 965144935}
   operationTime: 300

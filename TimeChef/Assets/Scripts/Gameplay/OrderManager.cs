@@ -15,7 +15,7 @@ public class OrderManager : MonoBehaviour
     //private string[] possibleDishes;
 
     // Used to determin order number
-    private int orderCounter = 0;
+    private int orderCounter = 1;
 
     private int totalScore = 0;
 
@@ -27,12 +27,11 @@ public class OrderManager : MonoBehaviour
     private System.Random rand;
 
     public bool startOperation = false;
+    private bool inProgress = false;
     private bool completeOperation = false;
     // Start is called before the first frame update
     void Start()
     {
-        //possibleDishes = new string[RecipeBook._instance.recipes.Keys.Count];
-        //RecipeBook._instance.recipes.Keys.CopyTo(possibleDishes, 0);
         rand = new System.Random();
     }
 
@@ -41,32 +40,48 @@ public class OrderManager : MonoBehaviour
     {
 
         if(!completeOperation && startOperation){
-            MakeNewOrder();
+            // MakeNewOrder();
+            StartCoroutine(GenerateOrders());
             startOperation = false;
+            inProgress = true;
             // Start the order process
             // Only make a new order when an order suite is completed
-            //StartCoroutine(GenerateOrders());
-            // End the order manager when 
+        }
+
+        if(!completeOperation && inProgress){
             if(numCompletedOrders == numTotalOrders){
                 completeOperation = true;
+                inProgress = false;
+                Debug.Log("All orders have been given");
+                
+                // Clear any remaining orders
+                // if(currOrder != null){
+                //     currOrder.EndOrder(false);
+                // }
             }
+
+            // Check orders here
+            CheckOrders();
         }
     }
 
+    // Generates order objects
     IEnumerator GenerateOrders()
     {
+        // Keep making new orders until completed orders is equal to total orders
         while(numCompletedOrders < numTotalOrders){
+            MakeNewOrder();
             // Check whether order suite is completed or not
             while(currOrder != null){
                 yield return null;
             }
-            // Once its over make a new order
-            MakeNewOrder();
         }
+
     }
 
     void MakeNewOrder()
     {
+        Debug.Log("Make new order");
         // Pick a random dish name from the available dishes
         string[] possibleDishes = new string[RecipeBook._instance.recipes.Keys.Count];
         RecipeBook._instance.recipes.Keys.CopyTo(possibleDishes, 0);
@@ -84,6 +99,16 @@ public class OrderManager : MonoBehaviour
         currOrder = order;
 
 
+    }
+
+    void CheckOrders()
+    {
+        // This means that nothing was submitted
+        if(currOrder != null && currOrder.FailedToServe()){
+            Debug.Log("Remove unfinished order");
+            numCompletedOrders+=1;
+            currOrder.EndOrder(false);
+        }
     }
 
     GameObject InstantiateOrderObject()
