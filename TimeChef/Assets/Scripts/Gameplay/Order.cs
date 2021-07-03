@@ -29,6 +29,7 @@ public class Order : MonoBehaviour
     {
         if(timer.IsTimerFinished()){
             Debug.Log("Player failed to serve on time");
+            EndOrder(false);
         }
         
         if(!inProgress && isOrderInitialized){
@@ -63,7 +64,14 @@ public class Order : MonoBehaviour
     {
         if(!success){
             Debug.Log("FAIL TO SERVE ORDER #" + orderNum.ToString());
-            Destroy(gameObject);
         }
+        float endTime = timer.GetCurrTime();
+        Debug.Log("Order finished at " + Mathf.Round(endTime).ToString());
+        Destroy(gameObject);
+    }
+
+    public bool CheckDishAccuracy(string dishName)
+    {
+        return this.dishName == dishName;
     }
 }

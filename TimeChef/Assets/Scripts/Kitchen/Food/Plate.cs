@@ -187,6 +187,11 @@ public class Plate : Item
         return holdCompleteDish;
     }
 
+    public string GetDishName()
+    {
+        return dishName;
+    }
+
 
 
 }
