@@ -50,11 +50,25 @@ public abstract class InteractionTrigger : MonoBehaviour
         }
     }
 
+    // void OnTriggerStay2D(Collider2D col)
+    // {
+    //     if(col.tag == "Agent"){
+    //         // Then appliance can be used
+    //         Debug.Log("item can be taken or interacted with");
+    //         inRange = true;
+    //         gameplayAgent = col.gameObject;
+    //         agentItems = gameplayAgent.GetComponent<ItemSystem>();
+    //         //agentItems = col.gameObject.GetComponent<ItemSystem>();
+    //     }
+    // }
+
     void OnTriggerExit2D(Collider2D col)
     {
-        inRange = false;
-        gameplayAgent = null;
-        agentItems = null;
+        if(col.tag == "Agent"){
+            inRange = false;
+            gameplayAgent = null;
+            agentItems = null;
+        }
     }
 
     public void Deactivate()
