@@ -13,6 +13,8 @@ public abstract class Item : MonoBehaviour
     private InteractionTrigger triggerZone;
 
     public abstract void Reset();
+    protected int originalOrder;
+    protected SpriteRenderer spriteRenderer;
     // Start is called before the first frame update
     // void Start()
     // {
@@ -21,6 +23,8 @@ public abstract class Item : MonoBehaviour
     void Awake()
     {
         triggerZone = GetComponentInChildren<InteractionTrigger>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        originalOrder = spriteRenderer.sortingOrder;
     }
 
     public void ActivateInteraction()
@@ -31,6 +35,16 @@ public abstract class Item : MonoBehaviour
     public void DeactivateInteraction()
     {
         triggerZone.Deactivate();
+    }
+
+    public void ChangeSortOrder(int newSort)
+    {
+        spriteRenderer.sortingOrder = newSort;
+    }
+
+    public void ResetSortOrder()
+    {
+        spriteRenderer.sortingOrder = originalOrder;
     }
 
 
