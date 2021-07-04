@@ -120,8 +120,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e2c64738c1a8484b9b9e4b9b5dfb979, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5025623285904758169
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,9 +267,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f7070cf1e6ff134aa52b5fbbb1977be, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
-  processingTime: 0
+  m_Name: 
+  m_EditorClassIdentifier: 
+  processingTime: 5
   itemHolder: {fileID: 5025623284435388279}
 --- !u!95 &773514158
 Animator:
@@ -286,7 +286,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
-  m_WarningMessage:
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
