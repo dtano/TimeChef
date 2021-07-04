@@ -12,7 +12,7 @@ public class Stove : Appliance
     // Start is called before the first frame update
     void Start()
     {
-        
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -30,6 +30,8 @@ public class Stove : Appliance
             }
             Debug.Log(cookingTool);
         }
+
+        Animate();
     }
 
     protected override bool WillAcceptItem(Item givenItem)
@@ -65,6 +67,15 @@ public class Stove : Appliance
         cookingTool.RemoveFromAppliance();
         isHolding = false;
         cookingTool = null;
+    }
+
+    void Animate()
+    {
+        if(cookingTool != null){
+            animator.SetBool("isProcessing", cookingTool.IsCooking());
+        }else{
+            animator.SetBool("isProcessing", false);
+        }
     }
 
     protected override void Action()
