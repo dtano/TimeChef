@@ -24,15 +24,12 @@ public class Plate : Item
     // This can be filled when a complete dish is either tranferred here or created
     private string dishName;
 
-    private SpriteRenderer spriteRenderer;
-
     // Dish and kitchenware can both synthesize ingredients to food, so an interface might be appropriate
 
     // Start is called before the first frame update
     void Start()
     {
         ingredients = new List<Ingredient>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
 
         if(isDirty){
             spriteRenderer.sprite = dirtySprite;
@@ -61,7 +58,9 @@ public class Plate : Item
             if(ing.IsBurnt()){
                 // This means no matter what the dish will be invalid
                 Debug.Log("Created muck");
-                // spriterenderer.sprite = "sprite of muck"
+
+                PlateFailedDish();
+                holdCompleteDish = true;
                 return;
             }
             ingredientNames.Add(ing.ingredientName);
@@ -86,16 +85,15 @@ public class Plate : Item
         // If we reach this part and the plate is holding 3 ingredients already,
         // it means that no matter what, the current combination is a bust
         if(ingredients.Count == 3){
-            Debug.Log("FAIL");
+            PlateFailedDish();
             holdCompleteDish = true;
-            isFailed = true;
             
         }
     }
 
     public bool AddIngredient(Ingredient ingredient)
     {
-        if(ingredients.Count < maxContents){
+        if(!IsFull()){
             ingredients.Add(ingredient);
             // Everytime you add an ingredient, try to see if its a proper combination
             IngredientSynthesis();
@@ -106,7 +104,7 @@ public class Plate : Item
 
     public void AddMultipleIngredients(List<Ingredient> newIngredients)
     {
-        if(newIngredients.Count + newIngredients.Count <= maxContents){
+        if(newIngredients.Count + newIngredients.Count <= maxContents && !holdCompleteDish){
             ingredients.AddRange(newIngredients);
             IngredientSynthesis();
         }
@@ -124,13 +122,19 @@ public class Plate : Item
         }else{
             // Means that its muck
             Debug.Log("You plated muck");
-            this.dishName = "muck";
-            isFailed = true;
+            PlateFailedDish();
         }
         // What if the plate has some ingredients on it? Just override the ingredients
         ingredients.Clear();
         holdCompleteDish = true;
         
+    }
+
+    void PlateFailedDish()
+    {
+        this.dishName = "Muck";
+        spriteRenderer.sprite = RecipeBook._instance.dishSprites[dishName];
+        isFailed = true;
     }
 
     // Clear ingredients and change sprite back
@@ -150,7 +154,7 @@ public class Plate : Item
 
     public bool IsFull()
     {
-        return ingredients.Count == maxContents;
+        return ingredients.Count == maxContents || holdCompleteDish;
     }
 
     public bool IsEmpty()
@@ -173,6 +177,16 @@ public class Plate : Item
     {
         isDirty = true;
         spriteRenderer.sprite = dirtySprite;
+    }
+
+    public bool IsHoldingDish()
+    {
+        return holdCompleteDish;
+    }
+
+    public string GetDishName()
+    {
+        return dishName;
     }
 
 

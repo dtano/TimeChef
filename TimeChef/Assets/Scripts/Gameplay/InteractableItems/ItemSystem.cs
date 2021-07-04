@@ -12,6 +12,13 @@ public class ItemSystem : MonoBehaviour
     public Transform detectionPoint;
     public float detectionRadius = 0.2f;
     public LayerMask detectionLayer;
+
+    private SpriteRenderer spriteRenderer;
+
+    void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
     
     // Update is called once per frame
     void Update()
@@ -46,9 +53,13 @@ public class ItemSystem : MonoBehaviour
                 //currItem.GetComponent<Rigidbody2D>().isKinematic = false;
                 currItem.GetComponent<Collider2D>().enabled = true;
                 currItem.ActivateInteraction();
+                currItem.ResetSortOrder();
                 currItem = null;
+                Debug.Log("Dropped item");
             }
 
+        }else{
+            Debug.Log("Curr item is null");
         }
         //else{
         //     if(Input.GetKeyDown(KeyCode.Space)){
@@ -93,10 +104,9 @@ public class ItemSystem : MonoBehaviour
         currItem.GetComponent<Rigidbody2D>().isKinematic = true;
         currItem.GetComponent<Collider2D>().enabled = false;
 
-        SpriteRenderer sr = currItem.gameObject.GetComponent<SpriteRenderer>();
-        //sr.sortingOrder = GetComponent<SpriteRenderer>().sortingOrder + 1;
-        sr.sortingOrder += 1;
+        currItem.ChangeSortOrder(spriteRenderer.sortingOrder + 1);
         
+        // Change animation to pick up and play pick up sound effect
         detectedItem = null;
     } 
 
@@ -114,12 +124,19 @@ public class ItemSystem : MonoBehaviour
         return false;
     }
 
+    public void ForcePickUp(GameObject item)
+    {
+        detectedItem = item;
+        PickUp();
+        item.GetComponent<Item>().DeactivateInteraction();
+    }
+
     public void DropItem()
     {
         if(currItem != null){
             currItem.gameObject.GetComponent<Collider2D>().enabled = true;
-            SpriteRenderer sr = currItem.gameObject.GetComponent<SpriteRenderer>();
-            sr.sortingOrder -= 1;
+            //SpriteRenderer sr = currItem.gameObject.GetComponent<SpriteRenderer>();
+            currItem.ResetSortOrder();
             currItem = null;
         }else{
             Debug.Log("Curr item is null already");
@@ -136,11 +153,11 @@ public class ItemSystem : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawSphere(detectionPoint.position, detectionRadius);
-    }
+    // private void OnDrawGizmosSelected()
+    // {
+    //     Gizmos.color = Color.green;
+    //     Gizmos.DrawSphere(detectionPoint.position, detectionRadius);
+    // }
 
     public bool isCarrying()
     {
