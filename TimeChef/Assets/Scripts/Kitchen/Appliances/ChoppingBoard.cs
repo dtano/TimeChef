@@ -9,12 +9,16 @@ public class ChoppingBoard : Appliance
     private bool isFinished = false;
 
     public Transform itemHolder;
+    public GameObject processCloud;
     
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponent<Animator>();
         timer = GetComponent<Timer>();
         timer.Deactivate();
+
+        processCloud.SetActive(false);
     }
 
     protected override void Update()
@@ -39,25 +43,42 @@ public class ChoppingBoard : Appliance
     protected override bool WillAcceptItem(Item givenItem)
     {   
         // Only accepts ingredients
-        if(givenItem is Ingredient){
-            Ingredient ing = (Ingredient) givenItem;
-            if(ing.GetIngType() == Ingredient.IngredientType.Whole && !ing.IsSpoiled()){
-                return true;
+        if(heldIngredient == null){
+            if(givenItem is Ingredient){
+                Ingredient ing = (Ingredient) givenItem;
+                if(ing.GetIngType() == Ingredient.IngredientType.Whole && !ing.IsSpoiled()){
+                    return true;
+                }
             }
-        }else if(givenItem is Plate){
-            Plate plate = (Plate) givenItem;
-            if(!plate.IsFull()){
-                return true;
+        }else{
+            if(givenItem is Plate){
+                Plate plate = (Plate) givenItem;
+                if(!plate.IsFull()){
+                    return true;
+                }
             }
-
         }
         return false;
     }
 
     public void InitiateTimer()
     {
+        Animate(true);
         timer.SetDuration(processingTime, false);
         timer.Activate();
+    }
+
+    // Plays a process animation when an ingredient is being cut
+    // activate is a bool to determine whether we want to start or stop the animation
+    void Animate(bool activate)
+    {
+        if(activate){
+            processCloud.SetActive(true);
+            animator.SetBool("isProcessing", true);
+        }else{
+            animator.SetBool("isProcessing", false);
+            processCloud.SetActive(false);
+        }
     }
     
     protected override void HandleItem(Item givenItem)
@@ -89,6 +110,7 @@ public class ChoppingBoard : Appliance
     {
         // Only when its finished is when you can take the chopped ingredient
         if(isFinished){
+            Debug.Log("Transfer from chopping board to plate");
             plate.AddIngredient(heldIngredient);
             Destroy(heldIngredient.gameObject);
         }
@@ -100,6 +122,7 @@ public class ChoppingBoard : Appliance
         isProcessing = false;
         isFinished = true;
         heldIngredient.TransformType(Ingredient.IngredientType.Chopped);
+        Animate(false);
         
         // Change sprite
         heldIngredient.ActivateInteraction();

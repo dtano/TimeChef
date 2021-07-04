@@ -24,15 +24,12 @@ public class Plate : Item
     // This can be filled when a complete dish is either tranferred here or created
     private string dishName;
 
-    private SpriteRenderer spriteRenderer;
-
     // Dish and kitchenware can both synthesize ingredients to food, so an interface might be appropriate
 
     // Start is called before the first frame update
     void Start()
     {
         ingredients = new List<Ingredient>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
 
         if(isDirty){
             spriteRenderer.sprite = dirtySprite;
