@@ -9,12 +9,8 @@ public abstract class Appliance : MonoBehaviour
     protected bool isProcessing = false;
     protected bool isHolding = false;
 
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    protected Animator animator;
+
 
     // Update is called once per frame
     protected virtual void Update()

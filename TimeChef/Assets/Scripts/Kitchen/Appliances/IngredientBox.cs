@@ -6,17 +6,8 @@ public class IngredientBox : MonoBehaviour
 {
     public GameObject ingredientPrefab;
 
-    // This boxSign is the sprite of the ingredient that it instantiates
-    public Sprite boxSign;
-
     // The chance that the box might produce a spoiled ingredient
     public float spoiledChance;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        boxSign = ingredientPrefab.GetComponent<SpriteRenderer>().sprite;
-    }
 
     // Instantiates the specified prefab
     public void Produce(ItemSystem agentItems)

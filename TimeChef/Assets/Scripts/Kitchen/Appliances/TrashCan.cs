@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class TrashCan : Appliance
 {
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
     protected override bool WillAcceptItem(Item givenItem)
     {
         // Can accept ingredients (fresh, whole, burnt, spoiled)
@@ -33,6 +37,7 @@ public class TrashCan : Appliance
 
     protected override void HandleItem(Item givenItem)
     {
+        animator.SetTrigger("Operate");
         givenItem.Reset();
         // Play trash sound effect
         Debug.Log("item has been disposed off or reset");
