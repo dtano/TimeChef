@@ -64,14 +64,27 @@ public class Kitchenware : Item
     // Add an ingredient to the list
     public void AddIngredient(Ingredient ingredient)
     {
+        // Change sprite here
         if(ingredients.Count < numAcceptedIngredients){
             ingredients.Add(ingredient);
+            HandleSpriteChange(ingredient);
             if(isCooking){
                 // Reset the counter back to 0
                 timer.ResetTime();
             }
             
         }
+    }
+
+    void HandleSpriteChange(Ingredient ingredient)
+    {
+        string[] subs = ingredient.ingredientName.Split(' ');
+        string ingTrueName = subs[0];
+        if(subs.Length > 1){
+            ingTrueName = subs[1];
+        }
+        Sprite newSprite = Resources.Load<Sprite>($"Sprites/PotSprites/{ingTrueName}Pot");
+        spriteRenderer.sprite = newSprite;
     }
 
     // Combination of ingredients on the pan/pot to produce a new ingredient
@@ -185,7 +198,7 @@ public class Kitchenware : Item
 
     public bool IsEmpty()
     {
-        return ingredients.Count > 0;
+        return ingredients.Count == 0;
     }
 
     public override void Reset()
@@ -198,6 +211,7 @@ public class Kitchenware : Item
         timer.FullReset();
 
         // Reset sprite too
+        spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/PotSprites/Pot");
         
     }
 

@@ -93,6 +93,8 @@ public class Plate : Item
 
     public bool AddIngredient(Ingredient ingredient)
     {
+        // Change sprite everytime an ingredient is added. This will represent the last added ingredient
+
         if(!IsFull()){
             ingredients.Add(ingredient);
             // Everytime you add an ingredient, try to see if its a proper combination
@@ -104,7 +106,7 @@ public class Plate : Item
 
     public void AddMultipleIngredients(List<Ingredient> newIngredients)
     {
-        if(newIngredients.Count + newIngredients.Count <= maxContents && !holdCompleteDish){
+        if(newIngredients.Count + this.ingredients.Count <= maxContents && !holdCompleteDish){
             ingredients.AddRange(newIngredients);
             IngredientSynthesis();
         }
