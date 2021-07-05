@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class OrderManager : MonoBehaviour
 {
+    //  For the plates, maybe I should just send back dirty plates immediately
+    //  after an order suite is finished (depending on if there are any failed orders)
+    //  A kitchen can only have 4 plates at a time
     private Queue<Order> orders;
     public int numTotalOrders;
     public GameObject orderPrefab;
@@ -24,7 +27,7 @@ public class OrderManager : MonoBehaviour
     public float operationTime;
     // How many orders a player can serve at a time
     public int maxOrderSuiteLength;
-    
+
     // This is where the player can serve their dishes
     public OrderWindow orderWindow;
     private System.Random rand;
@@ -57,7 +60,7 @@ public class OrderManager : MonoBehaviour
                 completeOperation = true;
                 inProgress = false;
                 Debug.Log("All orders have been given");
-                
+
                 // Clear any remaining orders
                 // if(currOrder != null){
                 //     currOrder.EndOrder(false);
@@ -104,13 +107,13 @@ public class OrderManager : MonoBehaviour
         // Pick a random dish name from the available dishes
         string[] possibleDishes = new string[RecipeBook._instance.recipes.Keys.Count];
         RecipeBook._instance.recipes.Keys.CopyTo(possibleDishes, 0);
-        
+
         string dishName = possibleDishes[rand.Next(0, possibleDishes.Length)];
         // Pick a random customer type. This will impact the longest a customer will wait for their dish
         float waitTime = 20;
-        
+
         GameObject orderObject = InstantiateOrderObject();
-        
+
         Order order = orderObject.GetComponent<Order>();
         order.MakeOrder(dishName, waitTime, orderCounter);
         orderCounter++;
@@ -187,8 +190,8 @@ public class OrderManager : MonoBehaviour
             orderSuite[0].EndOrder(false);
             orderSuite.RemoveAt(0);
         }
-        
-        
+
+
         numCompletedOrders++;
     }
 
