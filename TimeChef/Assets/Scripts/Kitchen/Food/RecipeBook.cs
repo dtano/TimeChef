@@ -38,10 +38,10 @@ public class RecipeBook : MonoBehaviour
     void Start()
     {
         recipes = new Dictionary<string, string[]>(){
-            {"Onion Soup", new string[] {"onion", "onion", "onion"}},
+            {"Onion Soup", new string[] {"cooked onion", "cooked onion", "cooked onion"}},
             {"Garden Salad", new string[] {"lettuce", "chopped tomato"}},
             {"Potato Salad", new string[] {"cooked potato", "chopped onion", "chopped tomato"}},
-            {"Tomato Soup", new string[] {"tomato", "tomato", "tomato"}}
+            {"Tomato Soup", new string[] {"cooked tomato", "cooked tomato", "cooked tomato"}}
         };
         // for(int i = 0; i < dishNames.Length; i++){
         //     recipes.Add(dishNames[i], ingredientsNeeded[i].Split(','));
@@ -54,7 +54,7 @@ public class RecipeBook : MonoBehaviour
         };
 
         ingredientDishMapping = new Dictionary<string, string[]>(){
-            {"chopped potato", new string[] {"Potato Salad"}},
+            {"cooked potato", new string[] {"Potato Salad"}},
             {"onion", new string[] {"Onion Soup"}},
             {"chopped onion", new string[] {"Potato Salad"}},
             {"tomato", new string[] {"Tomato Soup"}},

@@ -85,6 +85,7 @@ public class Ingredient : Item
     public void Cook()
     {
         isCooked = true;
+        TransformType(IngredientType.Cooked);
     }
 
     public void Overcook()
