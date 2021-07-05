@@ -19,5 +19,11 @@ public class ApplianceTrigger : InteractionTrigger
             Debug.Log("Interact!");
             appliance.UseAppliance(agentItems);
         }
+
+        // if(appliance is Table){
+        //     if(Input.GetKeyDown(KeyCode.Space)){
+        //         ((Table) appliance).TransferToPlayer(agentItems);
+        //     }
+        // }
     }
 }

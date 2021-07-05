@@ -5,6 +5,7 @@ using UnityEngine;
 public class Table : Appliance
 {
     public Transform itemHolder;
+    public bool allowMultiple = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,7 +15,11 @@ public class Table : Appliance
     protected override bool WillAcceptItem(Item givenItem)
     {
         // Any item will do
-        if(itemHolder.transform.childCount == 0){
+        if(!allowMultiple){
+            if(itemHolder.transform.childCount == 0){
+                return true;
+            }
+        }else{
             return true;
         }
         return false;
@@ -22,9 +27,27 @@ public class Table : Appliance
 
     protected override void HandleItem(Item givenItem)
     {
+        //givenItem.gameObject.GetComponent<Collider2D>().enabled = false;
         givenItem.transform.parent = itemHolder;
         givenItem.transform.position = itemHolder.position;
         givenItem.ActivateInteraction();
+    }
+
+    public void PassItem(Item givenItem)
+    {
+        HandleItem(givenItem);
+    }
+
+    // public void TransferToPlayer(ItemSystem agentItems)
+    // {
+    //     if(itemHolder.transform.childCount > 0){
+    //         agentItems.ForcePickUp(transform.GetChild(0).gameObject);
+    //     }
+    // }
+
+    public int GetNumItems()
+    {
+        return transform.childCount;
     }
 
     protected override void Action()

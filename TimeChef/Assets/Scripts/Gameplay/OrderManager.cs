@@ -9,6 +9,10 @@ public class OrderManager : MonoBehaviour
     //  A kitchen can only have 4 plates at a time
     private Queue<Order> orders;
     public int numTotalOrders;
+    
+    // Used to make sure that only 4 plates are in the game at a time
+    public int maxPlates = 4;
+    
     public GameObject orderPrefab;
     public Transform orderHolder;
     private int numCompletedOrders;
@@ -110,7 +114,7 @@ public class OrderManager : MonoBehaviour
 
         string dishName = possibleDishes[rand.Next(0, possibleDishes.Length)];
         // Pick a random customer type. This will impact the longest a customer will wait for their dish
-        float waitTime = 20;
+        float waitTime = 30;
 
         GameObject orderObject = InstantiateOrderObject();
 
