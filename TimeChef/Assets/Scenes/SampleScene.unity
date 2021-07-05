@@ -378,7 +378,7 @@ GameObject:
   - component: {fileID: 348784249}
   m_Layer: 0
   m_Name: PlateManager
-  m_TagString: Untagged
+  m_TagString: PlateManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -17,8 +17,14 @@ public class OrderManager : MonoBehaviour
     public Transform orderHolder;
     private int numCompletedOrders;
 
+    // This refers to the number of failed orders in an order suite
+    //private int suiteFailedOrders;
+    // This refers to the number of successful orders in an order suite
+    private int suiteSubmittedOrders;
+
     private Order currOrder;
     private List<Order> orderSuite;
+    private PlateManager plateManager;
 
     //private string[] possibleDishes;
 
@@ -44,6 +50,7 @@ public class OrderManager : MonoBehaviour
     {
         rand = new System.Random();
         orderSuite = new List<Order>();
+        plateManager = GameObject.FindGameObjectWithTag("PlateManager").GetComponent<PlateManager>();
     }
 
     // Update is called once per frame
@@ -88,6 +95,7 @@ public class OrderManager : MonoBehaviour
                     upperBound--;
                 }
             }
+            
             int numOrders = rand.Next(1,upperBound + 1);
             for(int i = 0; i < numOrders; i++){
                 MakeNewOrder();
@@ -100,8 +108,13 @@ public class OrderManager : MonoBehaviour
             while(orderSuite.Count > 0){
                 yield return null;
             }
+            
             orderSuite.Clear();
+            // Return dirty plates
+            ManagePlates();
         }
+
+        ManagePlates();
 
     }
 
@@ -128,6 +141,13 @@ public class OrderManager : MonoBehaviour
 
     }
 
+    // Call on the plate manager to return the specified amount of plates
+    void ManagePlates()
+    {
+        plateManager.ReturnDirtyDishes(suiteSubmittedOrders);
+        suiteSubmittedOrders = 0;
+    }
+
     void CheckFailedOrders()
     {
         // This means that nothing was submitted
@@ -142,6 +162,7 @@ public class OrderManager : MonoBehaviour
                 if(order != null && order.FailedToServe()){
                     Debug.Log("Remove unfinished order");
                     numCompletedOrders+=1;
+                    // suiteFailedOrders += 1;
                     order.EndOrder(false);
                 }
             }
@@ -197,6 +218,7 @@ public class OrderManager : MonoBehaviour
 
 
         numCompletedOrders++;
+        suiteSubmittedOrders++;
     }
 
     public bool HasOrders()

@@ -40,7 +40,7 @@ public class RecipeBook : MonoBehaviour
         recipes = new Dictionary<string, string[]>(){
             {"Onion Soup", new string[] {"onion", "onion", "onion"}},
             {"Garden Salad", new string[] {"lettuce", "chopped tomato"}},
-            {"Potato Salad", new string[] {"boiled potato", "chopped onion", "chopped tomato"}},
+            {"Potato Salad", new string[] {"cooked potato", "chopped onion", "chopped tomato"}},
             {"Tomato Soup", new string[] {"tomato", "tomato", "tomato"}}
         };
         // for(int i = 0; i < dishNames.Length; i++){

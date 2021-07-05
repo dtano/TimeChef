@@ -28,6 +28,7 @@ public class PlateManager : MonoBehaviour
         currNumPlates = cleanCollectionPoint.GetNumItems();
     }
 
+    // Brings back the given amount of dirty dishes to the kitchen
     public void ReturnDirtyDishes(int numSuccessfulOrders)
     {
         // Update current number of plates
@@ -63,6 +64,8 @@ public class PlateManager : MonoBehaviour
         dirtyCollectionPoint.PassItem(plate);
     }
 
+    // Creates a clena plate and places it in the clean collection point
+    // Only use this when the game is initialized
     void InstantiateCleanPlate()
     {
         GameObject plateObj = Instantiate(platePrefab, dirtyCollectionPoint.transform.position, Quaternion.identity);
