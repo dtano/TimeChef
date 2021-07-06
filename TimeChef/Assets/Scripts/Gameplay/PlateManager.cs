@@ -61,6 +61,7 @@ public class PlateManager : MonoBehaviour
         Plate plate = plateObj.GetComponent<Plate>();
 
         plate.MakeDirty();
+        plate.DeactivateInteraction();
         dirtyCollectionPoint.PassItem(plate);
     }
 

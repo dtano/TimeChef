@@ -47,6 +47,16 @@ public abstract class Item : MonoBehaviour
         spriteRenderer.sortingOrder = originalOrder;
     }
 
+    public void HideSprite()
+    {
+        spriteRenderer.enabled = false;
+    }
+
+    public void ShowSprite()
+    {
+        spriteRenderer.enabled = true;
+    }
+
 
     
 
