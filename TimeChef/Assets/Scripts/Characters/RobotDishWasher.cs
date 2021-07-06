@@ -21,6 +21,7 @@ public class RobotDishWasher : MonoBehaviour
     void Start()
     {
         timer = GetComponent<Timer>();
+        timer.Deactivate();
     }
 
     // Update is called once per frame
@@ -56,6 +57,7 @@ public class RobotDishWasher : MonoBehaviour
     // Full process of washing all dirty plates on the dirty plate table
     IEnumerator WashPlates()
     {
+        Debug.Log("Start plate washing");
         while(dirtyPlateTable.GetNumItems() > 0){
             Plate dirtyPlate = TakePlate(dirtyPlateTable);
             if(dirtyPlate != null){
@@ -67,14 +69,16 @@ public class RobotDishWasher : MonoBehaviour
             }
             yield return null;
         }
+        isProcessing = false;
+        timer.Deactivate();
     }
 
     // Takes a plate from the given table if there are any plates
     Plate TakePlate(Table table)
     {
         if(table.GetNumItems() > 0){
-            Transform plateObj = table.transform.GetChild(0);
-            plateObj.parent = null;
+            GameObject plateObj = table.GetTopObj();
+            plateObj.transform.parent = null;
             Plate plate = plateObj.GetComponent<Plate>();
             return plate;
         }else{

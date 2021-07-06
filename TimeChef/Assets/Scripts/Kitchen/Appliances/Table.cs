@@ -47,7 +47,12 @@ public class Table : Appliance
 
     public int GetNumItems()
     {
-        return transform.childCount;
+        return itemHolder.transform.childCount;
+    }
+
+    public GameObject GetTopObj()
+    {
+        return itemHolder.transform.GetChild(0).gameObject;
     }
 
     protected override void Action()
