@@ -32,8 +32,8 @@ public class RobotDishWasher : MonoBehaviour
         }
 
         // There's a chance of the robot breaking down
-        if(isProcessing){
-
+        if(isProcessing && !isDown){
+            //CheckBreakDown();
         }
     }
 
@@ -58,6 +58,7 @@ public class RobotDishWasher : MonoBehaviour
     IEnumerator WashPlates()
     {
         Debug.Log("Start plate washing");
+        yield return new WaitForSeconds(2f);
         while(dirtyPlateTable.GetNumItems() > 0){
             Plate dirtyPlate = TakePlate(dirtyPlateTable);
             if(dirtyPlate != null){
@@ -87,19 +88,6 @@ public class RobotDishWasher : MonoBehaviour
     }
 
     // The process of washing a single plate
-    // void WashSinglePlate(Plate dirtyPlate)
-    // {
-    //     // sink.AddPlate();
-    //     dirtyPlate.HideSprite();
-
-    //     // Should have a timer going on before calling dirtyPlate.Wash()
-    //     dirtyPlate.Wash();
-        
-    //     PostWash(dirtyPlate);
-
-    // }
-
-    // The process of washing a single plate
     // Involves activating a timer for how long the wash will take
     IEnumerator WashSinglePlate(Plate dirtyPlate)
     {
@@ -110,6 +98,7 @@ public class RobotDishWasher : MonoBehaviour
         yield return new WaitUntil(() => timer.IsTimerFinished());
         // Should have a timer going on before calling dirtyPlate.Wash()
 
+        Debug.Log("Plate finished washing");
         timer.FullReset();
         dirtyPlate.Wash();
         
@@ -130,5 +119,31 @@ public class RobotDishWasher : MonoBehaviour
     {
         timer.SetDuration(resetTime, false);
         timer.Activate();
+    }
+
+    // Robot broke down
+    void CheckBreakDown()
+    {   
+        // Means that the robot broke down
+        if(Random.value > breakdownChance){
+            // Start breakdown timer
+            StartCoroutine(BreakDown());
+        }
+    }
+
+    IEnumerator BreakDown()
+    {
+        isDown = true;
+        // Change robot animation
+        Debug.Log("Stop the count!");
+        timer.Stop();
+
+        yield return new WaitForSeconds(3f);
+
+        Debug.Log("Breakdown done!");
+
+        // This start timer is fucking things up
+        //timer.StartTimer();
+        isDown = false;
     }
 }

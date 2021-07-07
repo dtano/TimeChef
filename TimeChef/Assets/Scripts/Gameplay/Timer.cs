@@ -11,13 +11,17 @@ public class Timer : MonoBehaviour
     protected bool timerOn = false;
 
     public Slider timeSlider;
+    public Image finishedIndicator;
     public Vector3 offset;
 
     
     // Start is called before the first frame update
     void Start()
     {
-        timerOn = false;    
+        timerOn = false; 
+        // if(finishedIndicator != null){
+        //     finishedIndicator.enabled = false;
+        // }   
     }
 
     // Update is called once per frame
@@ -33,7 +37,10 @@ public class Timer : MonoBehaviour
                 Debug.Log("Time's up, food's done cooking");
                 timeOver = true;
                 timeSlider.value = duration;
-                Debug.Log(currTime);
+
+                if(finishedIndicator != null){
+                    IndicateOver();
+                }
                 // Need to do some sort of check here for if the food has reached burning threshold
                 //timerOn = false;
                 //currTime = duration;
@@ -61,13 +68,23 @@ public class Timer : MonoBehaviour
 
     public void Activate()
     {
-        timerOn = true;
+        StartTimer();
         ShowTimer();
     }
 
     public void Deactivate()
     {
         HideTimer();
+        Stop();
+    }
+
+    public void StartTimer()
+    {
+        timerOn = true;
+    }
+
+    public void Stop()
+    {
         timerOn = false;
     }
 
@@ -98,11 +115,26 @@ public class Timer : MonoBehaviour
     public void ResetTime()
     {
         currTime = 0;
+        if(finishedIndicator != null){
+            //finishedIndicator.sprite = null;
+            finishedIndicator.enabled = false;
+        }
+    }
+
+    // Indicate that the process is over
+    void IndicateOver()
+    {
+        //finishedIndicator.sprite = Resources.Load<Sprite>("Sprites/UI/TickMark");
+        finishedIndicator.enabled = true;
     }
 
     public void HideTimer()
     {
         timeSlider.gameObject.SetActive(false);
+        if(finishedIndicator != null){
+            //finishedIndicator.sprite = null;
+            finishedIndicator.enabled = false;
+        }
     }
 
     public void ShowTimer()

@@ -45,6 +45,8 @@ public class OrderManager : MonoBehaviour
     public bool startOperation = false;
     private bool inProgress = false;
     private bool completeOperation = false;
+    
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -126,8 +128,12 @@ public class OrderManager : MonoBehaviour
         RecipeBook._instance.recipes.Keys.CopyTo(possibleDishes, 0);
 
         string dishName = possibleDishes[rand.Next(0, possibleDishes.Length)];
+        
         // Pick a random customer type. This will impact the longest a customer will wait for their dish
-        float waitTime = 30;
+        //CustomerDB.CustomerType customerType = CustomerDB._instance.GetRandomCustType();
+        CustomerDB.CustomerType customerType = CustomerDB._instance.GetRandomCustType();
+        Debug.Log("Customer " + customerType);
+        float waitTime = CustomerDB._instance.waitTimes[customerType];
 
         GameObject orderObject = InstantiateOrderObject();
 
@@ -162,7 +168,6 @@ public class OrderManager : MonoBehaviour
                 if(order != null && order.FailedToServe()){
                     Debug.Log("Remove unfinished order");
                     numCompletedOrders+=1;
-                    // suiteFailedOrders += 1;
                     order.EndOrder(false);
                 }
             }
@@ -223,6 +228,7 @@ public class OrderManager : MonoBehaviour
 
     public bool HasOrders()
     {
-        return currOrder != null;
+        //return currOrder != null;
+        return orderSuite.Count > 0;
     }
 }

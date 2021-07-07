@@ -33,6 +33,7 @@ public class OrderWindow : Appliance
 
     protected override void AcceptItem(ItemSystem agentItems)
     {
+        Debug.Log("Order window accepts order");
         HandleItem(agentItems.GetCurrItem());
         if(agentItems.GetCurrItem() == null){
             agentItems.DropItem();
@@ -45,6 +46,8 @@ public class OrderWindow : Appliance
             orderManager.SubmitOrder((Plate) givenItem);
             givenItem.Reset();
             Destroy(givenItem.gameObject);
+        }else{
+            Debug.Log("No orders somehow");
         }
         // Now we need to somehow pass this dish to the order manager
     }
