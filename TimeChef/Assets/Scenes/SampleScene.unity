@@ -3525,6 +3525,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 68427796}
     m_Modifications:
+    - target: {fileID: 2023503923, guid: e5a29a5f36e803a498db3ce52db622be, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3714608968432133114, guid: e5a29a5f36e803a498db3ce52db622be, type: 3}
       propertyPath: m_Name
       value: LettuceBox

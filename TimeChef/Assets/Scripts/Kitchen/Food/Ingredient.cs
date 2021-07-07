@@ -57,13 +57,17 @@ public class Ingredient : Item
     public void TransformType(IngredientType newType)
     {
         if(ingredientType == IngredientType.Chopped && newType == IngredientType.Whole){
-            Debug.Log("Invalied transformation");
+            Debug.Log("Invalid transformation");
         }else{
             ingredientType = newType;
+            string capitalizedName = char.ToUpper(ingredientName[0]) + ingredientName.Substring(1);
+            
+            
             switch(ingredientType){
                 case IngredientType.Chopped:
                     ingredientName = "chopped " + ingredientName;
                     // Change sprite
+                    spriteRenderer.sprite = Resources.Load<Sprite>($"Sprites/IngSprites/Chopped{capitalizedName}");
                     break;
                 case IngredientType.Cooked:
                     ingredientName = "cooked " + ingredientName;
