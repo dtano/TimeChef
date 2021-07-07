@@ -15,6 +15,7 @@ public abstract class Item : MonoBehaviour
     public abstract void Reset();
     protected int originalOrder;
     protected SpriteRenderer spriteRenderer;
+    protected ITimeEffect timeEffect;
     // Start is called before the first frame update
     // void Start()
     // {
@@ -55,6 +56,19 @@ public abstract class Item : MonoBehaviour
     public void ShowSprite()
     {
         spriteRenderer.enabled = true;
+    }
+
+    public virtual bool AbleToManipulate()
+    {
+        return timeEffect != null;
+    }
+
+    // Triggers the time manipulation event for an item that has a time effect instance
+    public void ManipulateTime(TimeManipulator manipulator)
+    {
+        if(AbleToManipulate()){
+            timeEffect.Effect(manipulator);
+        }
     }
 
 

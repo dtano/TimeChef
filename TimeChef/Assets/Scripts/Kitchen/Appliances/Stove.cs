@@ -8,7 +8,6 @@ public class Stove : Appliance
     private Kitchenware cookingTool;
     public Transform itemHolder;
     
-    
     // Start is called before the first frame update
     void Start()
     {

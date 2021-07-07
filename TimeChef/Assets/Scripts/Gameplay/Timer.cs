@@ -10,6 +10,8 @@ public class Timer : MonoBehaviour
     protected bool timeOver = false;
     protected bool timerOn = false;
 
+    private float timeMultiplier = 1f;
+
     public Slider timeSlider;
     public Image finishedIndicator;
     public Vector3 offset;
@@ -31,12 +33,16 @@ public class Timer : MonoBehaviour
         timeSlider.transform.position = Camera.main.WorldToScreenPoint(transform.position + offset);
         
         if(timerOn){
-            currTime += Time.deltaTime;
+            currTime += (Time.deltaTime * timeMultiplier);
+            //currTime += Time.deltaTime;
 
             if(Mathf.Round(currTime) >= duration){
                 Debug.Log("Time's up, food's done cooking");
                 timeOver = true;
                 timeSlider.value = duration;
+
+                // Reset the time multiplier when the timer is over
+                timeMultiplier = 1;
 
                 if(finishedIndicator != null){
                     IndicateOver();
@@ -140,5 +146,11 @@ public class Timer : MonoBehaviour
     public void ShowTimer()
     {
         timeSlider.gameObject.SetActive(true);
+    }
+
+    // Speeds up the timer by increasing the time multiplier
+    public void SetTimeMultiplier(float multiplier)
+    {
+        timeMultiplier = multiplier;
     }
 }

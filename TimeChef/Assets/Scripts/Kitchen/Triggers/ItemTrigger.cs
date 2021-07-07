@@ -19,5 +19,13 @@ public class ItemTrigger : InteractionTrigger
                 Deactivate();
             }
         }
+
+        if(Input.GetKeyDown(KeyCode.F)){
+            Debug.Log("Attempt to speed up despoiling process");
+            if(item.AbleToManipulate()){
+                TimeManipulator manipulator = gameplayAgent.GetComponent<TimeManipulator>();
+                item.ManipulateTime(manipulator);
+            }
+        }
     }
 }

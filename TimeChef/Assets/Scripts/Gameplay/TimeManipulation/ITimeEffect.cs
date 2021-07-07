@@ -4,5 +4,7 @@ using UnityEngine;
 
 public interface ITimeEffect
 {
-    void Effect();
+    void Effect(TimeManipulator manipulator);
+
+    void SetCost(int cost);
 }

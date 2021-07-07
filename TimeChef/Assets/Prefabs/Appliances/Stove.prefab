@@ -269,7 +269,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f7070cf1e6ff134aa52b5fbbb1977be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  processingTime: 5
+  processingTime: 15
+  timeCost: 1
   itemHolder: {fileID: 5025623284435388279}
 --- !u!95 &773514158
 Animator:

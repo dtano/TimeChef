@@ -20,6 +20,14 @@ public class ApplianceTrigger : InteractionTrigger
             appliance.UseAppliance(agentItems);
         }
 
+        if(Input.GetKeyDown(KeyCode.F)){
+            Debug.Log("Attempt to speed up process");
+            if(appliance.AbleToManipulate()){
+                TimeManipulator manipulator = gameplayAgent.GetComponent<TimeManipulator>();
+                appliance.ManipulateTime(manipulator);
+            }
+        }
+
         // if(appliance is Table){
         //     if(Input.GetKeyDown(KeyCode.Space)){
         //         ((Table) appliance).TransferToPlayer(agentItems);

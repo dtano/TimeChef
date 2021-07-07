@@ -26,6 +26,14 @@ public class ToolTrigger : InteractionTrigger
                     Deactivate();
                 }
             }
+
+            if(Input.GetKeyDown(KeyCode.F)){
+                Debug.Log("Attempt to speed up process");
+                if(tool.AbleToManipulate()){
+                    TimeManipulator manipulator = gameplayAgent.GetComponent<TimeManipulator>();
+                    tool.ManipulateTime(manipulator);
+                }
+        }
         }
     }
 

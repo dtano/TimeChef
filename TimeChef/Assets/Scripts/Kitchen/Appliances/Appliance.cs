@@ -11,6 +11,10 @@ public abstract class Appliance : MonoBehaviour
 
     protected Animator animator;
 
+    // Allows the appliance to be affected by the player's time abilities
+    protected ITimeEffect timeEffect;
+    public int timeCost;
+
 
     // Update is called once per frame
     protected virtual void Update()
@@ -58,5 +62,19 @@ public abstract class Appliance : MonoBehaviour
     public bool isBusy()
     {
         return isProcessing;
+    }
+
+    // Both functions in the bottom are exactly the same as the code in Item, so this could be refactored
+    public bool AbleToManipulate()
+    {
+        return timeEffect != null;
+    }
+
+    // Triggers the time manipulation event for an item that has a time effect instance
+    public void ManipulateTime(TimeManipulator manipulator)
+    {
+        if(AbleToManipulate()){
+            timeEffect.Effect(manipulator);
+        }
     }
 }

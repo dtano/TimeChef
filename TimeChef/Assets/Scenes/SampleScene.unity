@@ -392,7 +392,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: -8157476808778409775, guid: 099b6e41f977a8b4a92488929c0a6a68, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1867,6 +1867,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   processingTime: 10
+  timeCost: 0
   cleanCollectionPoint: {fileID: 0}
   dirtyCollectionPoint: {fileID: 0}
   platePrefab: {fileID: 8116606270799545108, guid: 422429a0f08ee144d87ab0bf13f817a8, type: 3}
@@ -2589,7 +2590,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5025623285904758172, guid: 671bd90c0ae9f2c45b5c6ac242e33da3, type: 3}
       propertyPath: processingTime
-      value: 5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5025623285904758173, guid: 671bd90c0ae9f2c45b5c6ac242e33da3, type: 3}
       propertyPath: m_Size.y
@@ -2715,6 +2716,7 @@ GameObject:
   - component: {fileID: 1768415641}
   - component: {fileID: 1768415642}
   - component: {fileID: 1768415643}
+  - component: {fileID: 1768415644}
   m_Layer: 0
   m_Name: Player
   m_TagString: Agent
@@ -2887,6 +2889,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1768415644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768415636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03ad4252b8fc5c04093954f296d735e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeMultiplier: 4
+  timePoints: 5
 --- !u!1 &1819461648
 GameObject:
   m_ObjectHideFlags: 0
@@ -3055,6 +3071,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 890989080}
     m_Modifications:
+    - target: {fileID: 1193116948223766150, guid: 263cf64768fa096438e04e5b2ace4d41, type: 3}
+      propertyPath: timeCost
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1193116949737721700, guid: 263cf64768fa096438e04e5b2ace4d41, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
