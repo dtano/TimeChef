@@ -153,4 +153,9 @@ public class Timer : MonoBehaviour
     {
         timeMultiplier = multiplier;
     }
+
+    public float GetTimeMultiplier()
+    {
+        return timeMultiplier;
+    }
 }

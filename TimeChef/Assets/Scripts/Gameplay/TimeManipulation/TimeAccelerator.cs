@@ -32,4 +32,5 @@ public class TimeAccelerator : ITimeEffect
         }
         _timer.SetTimeMultiplier(manipulator.timeMultiplier);
     }
+
 }

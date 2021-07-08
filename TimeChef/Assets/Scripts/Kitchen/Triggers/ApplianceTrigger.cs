@@ -34,4 +34,12 @@ public class ApplianceTrigger : InteractionTrigger
         //     }
         // }
     }
+
+    protected override void TriggerEffect()
+    {
+    }
+
+    protected override void ExitEffect()
+    {
+    }
 }

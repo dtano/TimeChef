@@ -46,6 +46,7 @@ public abstract class InteractionTrigger : MonoBehaviour
             inRange = true;
             gameplayAgent = col.gameObject;
             agentItems = gameplayAgent.GetComponent<ItemSystem>();
+            TriggerEffect();
             //agentItems = col.gameObject.GetComponent<ItemSystem>();
         }
     }
@@ -68,6 +69,7 @@ public abstract class InteractionTrigger : MonoBehaviour
             inRange = false;
             gameplayAgent = null;
             agentItems = null;
+            ExitEffect();
         }
     }
 
@@ -82,4 +84,7 @@ public abstract class InteractionTrigger : MonoBehaviour
     {
         GetComponent<Collider2D>().enabled = true;
     }
+
+    protected abstract void TriggerEffect();
+    protected abstract void ExitEffect();
 }

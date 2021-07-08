@@ -254,4 +254,13 @@ public class Kitchenware : Item
         return false;
     }
 
+    // A check to see whether the player has affected this item with time manipulation
+    public bool IsManipulated()
+    {
+        if(timer.GetTimeMultiplier() != 1){
+            return true;
+        }
+        return false;
+    }
+
 }

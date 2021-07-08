@@ -18,4 +18,13 @@ public class ItemBoxTrigger : InteractionTrigger
             ingBox.Produce(agentItems);
         }
     }
+
+    protected override void TriggerEffect()
+    {
+        // Do nothing
+    }
+
+    protected override void ExitEffect()
+    {
+    }
 }

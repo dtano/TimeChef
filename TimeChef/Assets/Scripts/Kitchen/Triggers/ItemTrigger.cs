@@ -28,4 +28,12 @@ public class ItemTrigger : InteractionTrigger
             }
         }
     }
+
+    protected override void TriggerEffect()
+    {
+    }
+
+    protected override void ExitEffect()
+    {
+    }
 }

@@ -54,4 +54,12 @@ public class PlateTrigger : InteractionTrigger
             }
         }
     }
+
+    protected override void TriggerEffect()
+    {
+    }
+
+    protected override void ExitEffect()
+    {
+    }
 }
