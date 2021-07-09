@@ -202,25 +202,30 @@ public class OrderManager : MonoBehaviour
     public void SubmitOrder(Plate dish)
     {
         string submittedDishName = dish.GetDishName();
-        // if(orders.Peek().CheckDishAccuracy(submittedDishName)){
-        //     // Order is correct
-        //     orders.Dequeue().EndOrder(true);
-        // }
-        // if(currOrder.CheckDishAccuracy(submittedDishName)){
-        //     currOrder.EndOrder(true);
-        // }else{
-        //     currOrder.EndOrder(false);
-        // }
+        // If there are orders with the same dish, pick the order with the least amount of time left
         bool foundMatch = false;
-        foreach(Order order in orderSuite){
-            if(order.CheckDishAccuracy(submittedDishName)){
-                foundMatch = true;
-                order.EndOrder(true);
-                score += 10;
-                timeManipulator.AddPoints(1);
-                break;
-            }
+
+        // Find orders that match this dish
+        List<Order> accurateOrders = FindMatchingOrders(submittedDishName);
+
+        // If there is at least one matching order, then it means a match has been found
+        if(accurateOrders.Count > 0){
+            foundMatch = true;
+            accurateOrders[0].EndOrder(true);
+            score += 10;
+            timeManipulator.AddPoints(1);
         }
+
+        // foreach(Order order in orderSuite){
+        //     if(order.CheckDishAccuracy(submittedDishName)){
+        //         foundMatch = true;
+        //         order.EndOrder(true);
+        //         score += 10;
+        //         // Add back one point to the player after a successful order
+        //         timeManipulator.AddPoints(1);
+        //         break;
+        //     }
+        // }
         orderSuite.RemoveAll(order => order == null);
 
         // If no match was found, then deem the first order a failure
@@ -233,6 +238,21 @@ public class OrderManager : MonoBehaviour
 
         numCompletedOrders++;
         suiteSubmittedOrders++;
+    }
+
+    List<Order> FindMatchingOrders(string dishName)
+    {
+        // Find orders that match this dish
+        List<Order> accurateOrders = new List<Order>();
+        orderSuite.ForEach((order) => {
+            if(order.CheckDishAccuracy(dishName)){ 
+                accurateOrders.Add(order);
+            }
+        });
+
+        // Then sort by wait time if there is more than one match
+        accurateOrders.Sort((a, b) => (int) (b.GetWaitTime() - a.GetWaitTime()));
+        return accurateOrders;
     }
 
     public bool HasOrders()

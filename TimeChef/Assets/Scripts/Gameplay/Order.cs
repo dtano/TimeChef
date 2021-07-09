@@ -80,4 +80,9 @@ public class Order : MonoBehaviour
     {
         return isFailed;
     }
+
+    public float GetWaitTime()
+    {
+        return waitTime;
+    }
 }
