@@ -90,6 +90,7 @@ public class Stove : Appliance
     {
         bool condition = timeEffect != null && cookingTool != null && cookingTool.IsCooking();
         if(condition){
+            // Not a great workaround. Can be fixed next time
             ((TimeAccelerator)timeEffect).SetTimer(cookingTool.GetTimer());
         }
         return condition;

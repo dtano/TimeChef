@@ -57,7 +57,8 @@ public class Kitchenware : Item
             // Then food is finished
             if(timer.IsTimerFinished()){
                 // Now keep track of how long the food is left to cook after its cooking time
-                BurnCheck();
+                //BurnCheck();
+                timer.Stop();
             }
         }
 
@@ -148,21 +149,21 @@ public class Kitchenware : Item
     }
 
     // Checks whether the food in the pan or pot is burnt
-    public void BurnCheck()
-    {
-        // Count the seconds the food is in the pan after its supposed to be taken
-        float currTime = timer.GetCurrTime();
-        if(currTime > cookingTime + burnThreshold){
-            foreach(Ingredient ing in ingredients){
-                ing.Overcook();
-            }
-            Debug.Log("Food is burnt");
+    // public void BurnCheck()
+    // {
+    //     // Count the seconds the food is in the pan after its supposed to be taken
+    //     float currTime = timer.GetCurrTime();
+    //     if(currTime > cookingTime + burnThreshold){
+    //         foreach(Ingredient ing in ingredients){
+    //             ing.Overcook();
+    //         }
+    //         Debug.Log("Food is burnt");
 
-            // Force the timer to finish
-            timer.Deactivate();
-            // Show some burnt UI on top of the item
-        }
-    }
+    //         // Force the timer to finish
+    //         timer.Deactivate();
+    //         // Show some burnt UI on top of the item
+    //     }
+    // }
 
     // Place the pan on an appliance
     public void PlaceOnAppliance(Appliance appliance)

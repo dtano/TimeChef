@@ -16,14 +16,17 @@ public class Timer : MonoBehaviour
     public Image finishedIndicator;
     public Vector3 offset;
 
+    // An object that indicates whether or not this timer has been manipulated
+    public GameObject manipulationIndicator;
+
     
     // Start is called before the first frame update
     void Start()
     {
         timerOn = false; 
-        // if(finishedIndicator != null){
-        //     finishedIndicator.enabled = false;
-        // }   
+        if(manipulationIndicator != null){
+            manipulationIndicator.SetActive(false);
+        }   
     }
 
     // Update is called once per frame
@@ -31,7 +34,9 @@ public class Timer : MonoBehaviour
     {
         // Move the time slider based on where the tool is
         timeSlider.transform.position = Camera.main.WorldToScreenPoint(transform.position + offset);
-        
+        if(manipulationIndicator != null){
+            manipulationIndicator.transform.position = Camera.main.WorldToScreenPoint(transform.position + offset * 1.5f);
+        }
         if(timerOn){
             currTime += (Time.deltaTime * timeMultiplier);
             //currTime += Time.deltaTime;
@@ -46,6 +51,10 @@ public class Timer : MonoBehaviour
 
                 if(finishedIndicator != null){
                     IndicateOver();
+                }
+
+                if(manipulationIndicator != null){
+                    manipulationIndicator.SetActive(false);
                 }
                 // Need to do some sort of check here for if the food has reached burning threshold
                 //timerOn = false;
@@ -152,6 +161,9 @@ public class Timer : MonoBehaviour
     public void SetTimeMultiplier(float multiplier)
     {
         timeMultiplier = multiplier;
+        if(manipulationIndicator != null){
+            manipulationIndicator.SetActive(true);
+        }
     }
 
     public float GetTimeMultiplier()

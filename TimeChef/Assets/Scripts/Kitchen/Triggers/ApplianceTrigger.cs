@@ -25,6 +25,9 @@ public class ApplianceTrigger : InteractionTrigger
             if(appliance.AbleToManipulate()){
                 TimeManipulator manipulator = gameplayAgent.GetComponent<TimeManipulator>();
                 appliance.ManipulateTime(manipulator);
+                if(speedUpText != null){
+                    speedUpText.enabled = false;
+                }
             }
         }
 
