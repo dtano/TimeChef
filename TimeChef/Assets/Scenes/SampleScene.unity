@@ -4325,6 +4325,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 965144935}
     - target: {fileID: 6276145628421787693, guid: 3d4b9c453a00a3b478cd7e47980bdc65, type: 3}
+      propertyPath: orderPrefab
+      value: 
+      objectReference: {fileID: 278854180677954180, guid: 7a118b96ca8ed91449019fbf9751e8de, type: 3}
+    - target: {fileID: 6276145628421787693, guid: 3d4b9c453a00a3b478cd7e47980bdc65, type: 3}
       propertyPath: orderWindow
       value: 
       objectReference: {fileID: 933681304}

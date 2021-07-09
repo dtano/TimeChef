@@ -216,16 +216,7 @@ public class OrderManager : MonoBehaviour
             timeManipulator.AddPoints(1);
         }
 
-        // foreach(Order order in orderSuite){
-        //     if(order.CheckDishAccuracy(submittedDishName)){
-        //         foundMatch = true;
-        //         order.EndOrder(true);
-        //         score += 10;
-        //         // Add back one point to the player after a successful order
-        //         timeManipulator.AddPoints(1);
-        //         break;
-        //     }
-        // }
+        // Remove all ended orders
         orderSuite.RemoveAll(order => order == null);
 
         // If no match was found, then deem the first order a failure
@@ -240,6 +231,7 @@ public class OrderManager : MonoBehaviour
         suiteSubmittedOrders++;
     }
 
+    // Returns a list of matching orders from the order suite
     List<Order> FindMatchingOrders(string dishName)
     {
         // Find orders that match this dish
@@ -254,7 +246,7 @@ public class OrderManager : MonoBehaviour
         accurateOrders.Sort((a, b) => (int) (b.GetWaitTime() - a.GetWaitTime()));
         return accurateOrders;
     }
-
+    
     public bool HasOrders()
     {
         //return currOrder != null;

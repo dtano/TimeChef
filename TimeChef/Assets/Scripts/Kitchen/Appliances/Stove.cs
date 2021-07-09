@@ -12,6 +12,7 @@ public class Stove : Appliance
     void Start()
     {
         animator = GetComponent<Animator>();
+        timeEffect = new TimeAccelerator();
     }
 
     // Update is called once per frame
@@ -83,5 +84,14 @@ public class Stove : Appliance
         // adding ingredients to a cookware will start the process
         // 
         throw new System.NotImplementedException();
+    }
+
+    public override bool AbleToManipulate()
+    {
+        bool condition = timeEffect != null && cookingTool != null && cookingTool.IsCooking();
+        if(condition){
+            ((TimeAccelerator)timeEffect).SetTimer(cookingTool.GetTimer());
+        }
+        return condition;
     }
 }

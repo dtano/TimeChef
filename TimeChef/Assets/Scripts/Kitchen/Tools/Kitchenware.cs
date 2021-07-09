@@ -35,7 +35,7 @@ public class Kitchenware : Item
         timer = GetComponent<Timer>();
 
         // Instantiate a TimeAccelarator, since we want the player to be able to speed up cooking processes
-        timeEffect = new TimeAccelerator(timer);
+        //timeEffect = new TimeAccelerator(timer);
 
         // Make sure the cooking timer is not visible at the start
         timer.Deactivate();
@@ -169,7 +169,7 @@ public class Kitchenware : Item
     {
         isOnAppliance = true;
         cookingTime = appliance.processingTime;
-        timeEffect.SetCost(appliance.timeCost);
+        //timeEffect.SetCost(appliance.timeCost);
         Debug.Log("Tool placed on appliance");
 
     }
@@ -249,8 +249,10 @@ public class Kitchenware : Item
     public override bool AbleToManipulate()
     {
         if(timeEffect != null && IsCooking()){
+            Debug.Log("Able to manipulate pot");
             return true;
         }
+        Debug.Log("Can't manipulate pot");
         return false;
     }
 
@@ -261,6 +263,11 @@ public class Kitchenware : Item
             return true;
         }
         return false;
+    }
+
+    public Timer GetTimer()
+    {
+        return timer;
     }
 
 }

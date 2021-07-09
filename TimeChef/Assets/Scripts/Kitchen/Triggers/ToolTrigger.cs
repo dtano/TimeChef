@@ -30,8 +30,9 @@ public class ToolTrigger : InteractionTrigger
             }
 
             if(Input.GetKeyDown(KeyCode.F)){
-                Debug.Log("Attempt to speed up process");
+                Debug.Log("Attempt to manipulate tool");
                 if(tool.AbleToManipulate()){
+                    Debug.Log("Tool can be manipulated");
                     TimeManipulator manipulator = gameplayAgent.GetComponent<TimeManipulator>();
                     // Hide speed up text and show the hourglass sprite
                     if(speedUpText != null){

@@ -11,7 +11,7 @@ public class TimeAccelerator : ITimeEffect
     // How many time bullets does this skill need
     public int _skillCost;
     
-    public TimeAccelerator(Timer timer, int skillCost = 1)
+    public TimeAccelerator(Timer timer = null, int skillCost = 1)
     {
         _timer = timer;
         _skillCost = skillCost;
@@ -34,6 +34,11 @@ public class TimeAccelerator : ITimeEffect
             _timer.SetTimeMultiplier(manipulator.timeMultiplier);
             manipulator.UsePoints(_skillCost);
         }
+    }
+
+    public void SetTimer(Timer timer)
+    {
+        _timer = timer;
     }
 
 }
