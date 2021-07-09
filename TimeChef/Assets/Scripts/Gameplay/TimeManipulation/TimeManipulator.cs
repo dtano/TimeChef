@@ -38,8 +38,10 @@ public class TimeManipulator : MonoBehaviour
         Debug.Log("Points added");
         if(currTimePoints + points > timePoints){
             ResetPoints();
+            AddBullets(timePoints);
         }else{
             currTimePoints += points;
+            AddBullets(points);
         }
     }
 
@@ -64,27 +66,25 @@ public class TimeManipulator : MonoBehaviour
         return true;
     }
 
-    // Use up the given amount of bullets
+    // Use up the given amount of bullets and show it visually
     void UseBullets(int numBullets)
     {
         if(numBullets <= timePoints){
-            // int iterEnd = pointBullets.Length - numBullets;
-            // for(int i = pointBullets.Length - 1; i > iterEnd; i--){
-            //     pointBullets[i].SetActive(false);
-            // }
-
             // Need to use currTimePoints to figure out which bullet to deactivate
-            Debug.Log(currTimePoints);
             for(int i = pointBullets.Length - 1; i >= currTimePoints; i--){
                 pointBullets[i].SetActive(false);
             }
         }
     }
 
+    // Add bullets back and show it visually
     void AddBullets(int numBullets)
     {
         if(numBullets <= timePoints){
             // Need to find bullet that is inactive
+            for(int i = 0; i < currTimePoints; i++){
+                pointBullets[i].SetActive(true);
+            }
         }
     }
 }
