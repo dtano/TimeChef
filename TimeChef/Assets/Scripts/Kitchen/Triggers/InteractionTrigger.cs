@@ -10,14 +10,18 @@ public abstract class InteractionTrigger : MonoBehaviour
     protected bool inRange = false;
     protected GameObject gameplayAgent;
     protected ItemSystem agentItems;
+     // Text that appears when the player is in the trigger zone of a tool that can be sped up
+    public TMPro.TextMeshProUGUI speedUpText;
 
-    //public UnityEvent interactionEvent;
-    //public KeyCode interactionKey;
-    // void Awake()
-    // {
-    //     appliance = this.gameObject.transform.parent.GetComponent<Appliance>();
-    // }
-    protected abstract void Awake();
+    protected abstract void OnAwake();
+    void Awake()
+    {
+        if(speedUpText != null){
+            speedUpText.text = "Speed Up";
+            speedUpText.enabled = false;
+        }
+        OnAwake();
+    }
     protected virtual void Update()
     {
         if(inRange){
@@ -85,6 +89,21 @@ public abstract class InteractionTrigger : MonoBehaviour
         GetComponent<Collider2D>().enabled = true;
     }
 
-    protected abstract void TriggerEffect();
-    protected abstract void ExitEffect();
+    protected virtual void TriggerEffect()
+    {
+        if(speedUpText != null && TriggerCondition()){
+            Vector3 offset = new Vector3(0, 1f, 0);
+            speedUpText.transform.position = Camera.main.WorldToScreenPoint(transform.position + offset);
+            speedUpText.enabled = true;
+        }
+    }
+    
+    protected virtual void ExitEffect()
+    {
+        if(speedUpText != null){
+            speedUpText.enabled = false;
+        }
+    }
+
+    protected abstract bool TriggerCondition();
 }

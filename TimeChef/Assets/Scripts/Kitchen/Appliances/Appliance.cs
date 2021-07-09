@@ -65,7 +65,7 @@ public abstract class Appliance : MonoBehaviour
     }
 
     // Both functions in the bottom are exactly the same as the code in Item, so this could be refactored
-    public bool AbleToManipulate()
+    public virtual bool AbleToManipulate()
     {
         return timeEffect != null;
     }

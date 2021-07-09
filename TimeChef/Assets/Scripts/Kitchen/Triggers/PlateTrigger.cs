@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlateTrigger : InteractionTrigger
 {
     Plate plate;
-    protected override void Awake()
+    protected override void OnAwake()
     {
         plate = GetComponentInParent<Plate>();
     }
@@ -55,11 +55,8 @@ public class PlateTrigger : InteractionTrigger
         }
     }
 
-    protected override void TriggerEffect()
+    protected override bool TriggerCondition()
     {
-    }
-
-    protected override void ExitEffect()
-    {
+        return false;
     }
 }

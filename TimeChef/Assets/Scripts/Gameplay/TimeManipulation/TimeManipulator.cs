@@ -31,6 +31,7 @@ public class TimeManipulator : MonoBehaviour
     // Adds points back to the player's current time points
     public void AddPoints(int points)
     {
+        Debug.Log("Points added");
         if(currTimePoints + points > timePoints){
             ResetPoints();
         }else{
@@ -41,7 +42,11 @@ public class TimeManipulator : MonoBehaviour
     // Decrement time points by the given value
     public void UsePoints(int cost)
     {
-        currTimePoints -= cost;
+        if(currTimePoints - cost < 0){
+            currTimePoints = 0;
+        }else{
+            currTimePoints -= cost;
+        }
     }
 
     // A check to see whether the player has enough points to execute this command

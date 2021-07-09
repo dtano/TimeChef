@@ -6,7 +6,7 @@ public class ItemTrigger : InteractionTrigger
 {
     // Start is called before the first frame update
     private Item item;
-    protected override void Awake()
+    protected override void OnAwake()
     {
         item = GetComponentInParent<Item>();
     }
@@ -29,11 +29,8 @@ public class ItemTrigger : InteractionTrigger
         }
     }
 
-    protected override void TriggerEffect()
+    protected override bool TriggerCondition()
     {
-    }
-
-    protected override void ExitEffect()
-    {
+        return false;
     }
 }

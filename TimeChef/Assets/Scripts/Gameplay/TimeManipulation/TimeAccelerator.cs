@@ -25,12 +25,15 @@ public class TimeAccelerator : ITimeEffect
     // In an accelerator, the effect would be to speed up the timer
     public void Effect(TimeManipulator manipulator)
     {
-        // Change the time multiplier of the associated timer
-        if(manipulator.timeMultiplier <= 0){
-            // Default time multiplier value. Only used if the player is given a negative or zero multiplier
-            manipulator.timeMultiplier = 2f;
+        if(manipulator.CanManipulate(_skillCost)){
+            // Change the time multiplier of the associated timer
+            if(manipulator.timeMultiplier <= 0){
+                // Default time multiplier value. Only used if the player is given a negative or zero multiplier
+                manipulator.timeMultiplier = 2f;
+            }
+            _timer.SetTimeMultiplier(manipulator.timeMultiplier);
+            manipulator.UsePoints(_skillCost);
         }
-        _timer.SetTimeMultiplier(manipulator.timeMultiplier);
     }
 
 }

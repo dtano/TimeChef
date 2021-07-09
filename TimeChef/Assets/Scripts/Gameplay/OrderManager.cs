@@ -45,6 +45,10 @@ public class OrderManager : MonoBehaviour
     public bool startOperation = false;
     private bool inProgress = false;
     private bool completeOperation = false;
+
+    private int score;
+    // Represents the player's time manipulation abilities
+    private TimeManipulator timeManipulator;
     
     
     // Start is called before the first frame update
@@ -53,6 +57,7 @@ public class OrderManager : MonoBehaviour
         rand = new System.Random();
         orderSuite = new List<Order>();
         plateManager = GameObject.FindGameObjectWithTag("PlateManager").GetComponent<PlateManager>();
+        timeManipulator = GameObject.FindGameObjectWithTag("Agent").GetComponent<TimeManipulator>();
     }
 
     // Update is called once per frame
@@ -169,6 +174,7 @@ public class OrderManager : MonoBehaviour
                     Debug.Log("Remove unfinished order");
                     numCompletedOrders+=1;
                     order.EndOrder(false);
+                    score -= 10;
                 }
             }
         }
@@ -210,6 +216,8 @@ public class OrderManager : MonoBehaviour
             if(order.CheckDishAccuracy(submittedDishName)){
                 foundMatch = true;
                 order.EndOrder(true);
+                score += 10;
+                timeManipulator.AddPoints(1);
                 break;
             }
         }
@@ -219,6 +227,7 @@ public class OrderManager : MonoBehaviour
         if(!foundMatch && orderSuite.Count > 0){
             orderSuite[0].EndOrder(false);
             orderSuite.RemoveAt(0);
+            score -= 10;
         }
 
 

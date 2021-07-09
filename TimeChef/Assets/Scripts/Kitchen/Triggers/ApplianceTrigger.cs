@@ -7,7 +7,7 @@ public class ApplianceTrigger : InteractionTrigger
     private Appliance appliance;
     
     // Start is called before the first frame update
-    protected override void Awake()
+    protected override void OnAwake()
     {
         appliance = GetComponentInParent<Appliance>();
     }
@@ -37,9 +37,15 @@ public class ApplianceTrigger : InteractionTrigger
 
     protected override void TriggerEffect()
     {
+        if(speedUpText != null && TriggerCondition()){
+            //Vector3 offset = new Vector3(0, 1f, 0);
+            //speedUpText.transform.position = Camera.main.WorldToScreenPoint(transform.position + offset);
+            speedUpText.enabled = true;
+        }
     }
 
-    protected override void ExitEffect()
+    protected override bool TriggerCondition()
     {
+        return appliance.isBusy();
     }
 }

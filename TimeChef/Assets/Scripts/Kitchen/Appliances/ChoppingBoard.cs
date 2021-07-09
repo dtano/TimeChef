@@ -18,6 +18,8 @@ public class ChoppingBoard : Appliance
         timer = GetComponent<Timer>();
         timer.Deactivate();
 
+        timeEffect = new TimeAccelerator(timer, timeCost);
+
         processCloud.SetActive(false);
     }
 
@@ -140,5 +142,10 @@ public class ChoppingBoard : Appliance
     protected override void Action()
     {
         throw new System.NotImplementedException();
+    }
+
+    public override bool AbleToManipulate()
+    {
+        return timeEffect != null && heldIngredient != null && !isFinished;
     }
 }

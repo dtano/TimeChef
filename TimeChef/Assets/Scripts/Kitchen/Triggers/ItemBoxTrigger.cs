@@ -7,7 +7,7 @@ public class ItemBoxTrigger : InteractionTrigger
     private IngredientBox ingBox;
     
     // Start is called before the first frame update
-    protected override void Awake()
+    protected override void OnAwake()
     {
         ingBox = GetComponentInParent<IngredientBox>();
     }
@@ -19,12 +19,8 @@ public class ItemBoxTrigger : InteractionTrigger
         }
     }
 
-    protected override void TriggerEffect()
+    protected override bool TriggerCondition()
     {
-        // Do nothing
-    }
-
-    protected override void ExitEffect()
-    {
+        return false;
     }
 }

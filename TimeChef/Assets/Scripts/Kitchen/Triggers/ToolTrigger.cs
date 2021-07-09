@@ -5,18 +5,12 @@ using UnityEngine;
 public class ToolTrigger : InteractionTrigger
 {
     Kitchenware tool;
-    // Text that appears when the player is in the trigger zone of a tool that can be sped up
-    public TMPro.TextMeshProUGUI speedUpText;
     
     
     // Start is called before the first frame update
-    protected override void Awake()
+    protected override void OnAwake()
     {
         tool = GetComponentInParent<Kitchenware>();
-        if(speedUpText != null){
-            speedUpText.text = "Speed Up";
-            speedUpText.enabled = false;
-        }
     }
 
     protected override void Interact()
@@ -70,21 +64,9 @@ public class ToolTrigger : InteractionTrigger
         }
     }
 
-    // EnterEffect is probably a better name
-    protected override void TriggerEffect()
+    protected override bool TriggerCondition()
     {
-        if(tool.IsCooking() && !tool.IsHoldingACookedItem() && !tool.IsManipulated()){
-            Vector3 offset = new Vector3(0, 1f, 0);
-            speedUpText.transform.position = Camera.main.WorldToScreenPoint(transform.position + offset);
-            speedUpText.enabled = true;
-        }
-    }
-
-    protected override void ExitEffect()
-    {
-        if(speedUpText != null){
-            speedUpText.enabled = false;
-        }
+        return tool.IsCooking() && !tool.IsHoldingACookedItem() && !tool.IsManipulated();
     }
 
 }
