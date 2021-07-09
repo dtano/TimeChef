@@ -46,6 +46,7 @@ public class ApplianceTrigger : InteractionTrigger
 
     protected override bool TriggerCondition()
     {
-        return appliance.isBusy();
+        bool hasEnoughPoints = gameplayAgent.GetComponent<TimeManipulator>().CanManipulate(appliance.timeCost);
+        return hasEnoughPoints && appliance.isBusy();
     }
 }

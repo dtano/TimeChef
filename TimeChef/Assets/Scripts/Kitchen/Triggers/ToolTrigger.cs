@@ -66,7 +66,10 @@ public class ToolTrigger : InteractionTrigger
 
     protected override bool TriggerCondition()
     {
-        return tool.IsCooking() && !tool.IsHoldingACookedItem() && !tool.IsManipulated();
+        if(gameplayAgent.GetComponent<TimeManipulator>().CanManipulate()){
+            return tool.IsCooking() && !tool.IsHoldingACookedItem() && !tool.IsManipulated();
+        }
+        return false;
     }
 
 }
