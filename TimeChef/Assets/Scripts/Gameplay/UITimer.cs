@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UITimer : Timer
 {
+    public TMPro.TextMeshProUGUI valueText;
     // Update is called once per frame
     protected override void Update()
     {
@@ -18,6 +19,7 @@ public class UITimer : Timer
             }else{
                 //Debug.Log(Mathf.Round(currTime));
                 timeSlider.value = currTime;
+                DisplayTimerValue();
             }
         }
     }
@@ -31,5 +33,10 @@ public class UITimer : Timer
             currTime = duration;
             timeSlider.value = currTime;
         }
+    }
+
+    void DisplayTimerValue()
+    {
+        valueText.text = Mathf.Round(currTime).ToString();
     }
 }
