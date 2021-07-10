@@ -16,11 +16,15 @@ public class RobotDishWasher : MonoBehaviour
     // Timer for the reset time
     private Timer timer;
     private Sink sink;
+
+    // The robot animator 
+    private Animator anim;
     
     // Start is called before the first frame update
     void Start()
     {
         timer = GetComponent<Timer>();
+        anim = GetComponent<Animator>();
         timer.Deactivate();
     }
 
@@ -59,6 +63,8 @@ public class RobotDishWasher : MonoBehaviour
     {
         Debug.Log("Start plate washing");
         yield return new WaitForSeconds(2f);
+        // Start the washing animation whenever there are any dirty plates
+        anim.SetBool("isWashing", true);
         while(dirtyPlateTable.GetNumItems() > 0){
             Plate dirtyPlate = TakePlate(dirtyPlateTable);
             if(dirtyPlate != null){
@@ -70,6 +76,8 @@ public class RobotDishWasher : MonoBehaviour
             }
             yield return null;
         }
+        // Change back to idle animation when the washing session is over
+        anim.SetBool("isWashing", false);
         isProcessing = false;
         timer.Deactivate();
     }

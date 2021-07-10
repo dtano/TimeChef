@@ -349,6 +349,7 @@ GameObject:
   - component: {fileID: 210691750}
   - component: {fileID: 210691751}
   - component: {fileID: 210691748}
+  - component: {fileID: 210691752}
   m_Layer: 0
   m_Name: RobotDishWasher
   m_TagString: Untagged
@@ -501,6 +502,25 @@ MonoBehaviour:
   finishedIndicator: {fileID: 0}
   offset: {x: 0, y: 1, z: 0}
   manipulationIndicator: {fileID: 0}
+--- !u!95 &210691752
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210691745}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c9c522598d4e0fd4b999279cc0bd92a4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &268530565 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8479888840414154303, guid: 0ed0bbccdb9cfb94ca1551ad0272a1c2, type: 3}
