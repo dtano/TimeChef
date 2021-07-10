@@ -22,7 +22,7 @@ public class ApplianceTrigger : InteractionTrigger
 
         if(Input.GetKeyDown(KeyCode.F)){
             Debug.Log("Attempt to speed up process");
-            if(appliance.AbleToManipulate()){
+            if(appliance.AbleToManipulate() && !appliance.IsManipulated()){
                 TimeManipulator manipulator = gameplayAgent.GetComponent<TimeManipulator>();
                 appliance.ManipulateTime(manipulator);
                 if(speedUpText != null){

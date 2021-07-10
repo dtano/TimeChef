@@ -59,6 +59,7 @@ public class Kitchenware : Item
                 // Now keep track of how long the food is left to cook after its cooking time
                 //BurnCheck();
                 timer.Stop();
+                isCooking = false;
             }
         }
 

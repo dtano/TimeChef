@@ -9,12 +9,14 @@ public class IngredientBox : MonoBehaviour
     // The chance that the box might produce a spoiled ingredient
     public float spoiledChance;
     private int maxValue;
+    private Animator anim;
     System.Random rand;
 
     void Start()
     {
         rand = new System.Random();
         maxValue = 1;
+        anim = GetComponent<Animator>();
     }
 
     // Instantiates the specified prefab
@@ -34,6 +36,7 @@ public class IngredientBox : MonoBehaviour
             //     Debug.Log("Successfully placed spawned ingredient in the hands of the player");
             // }
             agentItems.ForcePickUp(newIngredient);
+            Animate();
             
         }else{
             // Then we need to check what kind of item the player is holding
@@ -46,6 +49,7 @@ public class IngredientBox : MonoBehaviour
 
                     // Because we only need the ingredient script
                     Destroy(newIngredient);
+                    Animate();
                 }
             }
         }
@@ -56,6 +60,11 @@ public class IngredientBox : MonoBehaviour
     GameObject InstantiateIngredient()
     {
         return Instantiate(ingredientPrefab, transform.position, Quaternion.identity);
+    }
+
+    void Animate()
+    {
+        anim.SetTrigger("Open");
     }
 
 }

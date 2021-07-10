@@ -148,4 +148,9 @@ public class ChoppingBoard : Appliance
     {
         return timeEffect != null && heldIngredient != null && !isFinished;
     }
+
+    public override bool IsManipulated()
+    {
+        return timer.IsManipulated();
+    }
 }

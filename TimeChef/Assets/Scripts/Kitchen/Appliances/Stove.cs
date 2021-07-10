@@ -95,4 +95,12 @@ public class Stove : Appliance
         }
         return condition;
     }
+
+    public override bool IsManipulated()
+    {
+        if(cookingTool != null && cookingTool.IsManipulated()){
+            return true;
+        }
+        return false;
+    }
 }

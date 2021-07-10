@@ -77,4 +77,10 @@ public abstract class Appliance : MonoBehaviour
             timeEffect.Effect(manipulator);
         }
     }
+
+    public virtual bool IsManipulated()
+    {
+        // Some appliances can't be affected
+        return false;
+    }
 }

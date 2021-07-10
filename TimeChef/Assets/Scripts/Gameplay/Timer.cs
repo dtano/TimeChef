@@ -166,6 +166,11 @@ public class Timer : MonoBehaviour
         }
     }
 
+    public bool IsManipulated()
+    {
+        return timeMultiplier != 1;
+    }
+
     public float GetTimeMultiplier()
     {
         return timeMultiplier;
