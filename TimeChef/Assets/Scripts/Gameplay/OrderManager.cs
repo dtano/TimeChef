@@ -49,6 +49,9 @@ public class OrderManager : MonoBehaviour
     private int score;
     // Represents the player's time manipulation abilities
     private TimeManipulator timeManipulator;
+
+    // A UI element that visually represents the score
+    private ScoreController scoreController;
     
     
     // Start is called before the first frame update
@@ -58,6 +61,8 @@ public class OrderManager : MonoBehaviour
         orderSuite = new List<Order>();
         plateManager = GameObject.FindGameObjectWithTag("PlateManager").GetComponent<PlateManager>();
         timeManipulator = GameObject.FindGameObjectWithTag("Agent").GetComponent<TimeManipulator>();
+        scoreController = GameObject.FindGameObjectWithTag("UIController").GetComponent<ScoreController>();
+        
     }
 
     // Update is called once per frame
@@ -169,13 +174,20 @@ public class OrderManager : MonoBehaviour
         // }
 
         if(orderSuite.Count > 0){
+            // Keeps track of how many points have been lost to failed orders for this suite
+            int totalScoreLost = 0;
             foreach(Order order in orderSuite){
                 if(order != null && order.FailedToServe()){
                     Debug.Log("Remove unfinished order");
                     numCompletedOrders+=1;
                     order.EndOrder(false);
                     score -= 10;
+                    totalScoreLost -= 10;
                 }
+            }
+            // Update score change with the total lost score
+            if(totalScoreLost < 0){
+                scoreController.UpdateScore(totalScoreLost);
             }
         }
 
@@ -213,6 +225,7 @@ public class OrderManager : MonoBehaviour
             foundMatch = true;
             accurateOrders[0].EndOrder(true);
             score += 10;
+            scoreController.UpdateScore(10);
             timeManipulator.AddPoints(1);
         }
 
@@ -224,6 +237,7 @@ public class OrderManager : MonoBehaviour
             orderSuite[0].EndOrder(false);
             orderSuite.RemoveAt(0);
             score -= 10;
+            scoreController.UpdateScore(-10);
         }
 
 
