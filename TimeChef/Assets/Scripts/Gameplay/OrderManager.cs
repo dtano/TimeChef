@@ -74,6 +74,8 @@ public class OrderManager : MonoBehaviour
         GameObject uiController = GameObject.FindGameObjectWithTag("UIController");
         scoreController = uiController.GetComponent<ScoreController>();
         progressController = uiController.GetComponent<GameProgressController>();
+
+        Debug.Log(progressController);
         
         // Initialize the max value to be the max number of orders
         progressController.SetMaxValue(numTotalOrders);

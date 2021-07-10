@@ -6,13 +6,21 @@ using UnityEngine.UI;
 public class GameProgressUI : MonoBehaviour
 {
     private Slider progressSlider;
-    
-    // Start is called before the first frame update
-    void Start()
+
+    void Awake()
     {
         progressSlider = transform.GetChild(0).GetComponent<Slider>();
+        //Debug.Log(progressSlider);
         progressSlider.value = 0;    
     }
+    
+    // // Start is called before the first frame update
+    // void Start()
+    // {
+    //     progressSlider = transform.GetChild(0).GetComponent<Slider>();
+    //     //Debug.Log(progressSlider);
+    //     progressSlider.value = 0;    
+    // }
 
     // Update is called once per frame
     void Update()
@@ -23,6 +31,7 @@ public class GameProgressUI : MonoBehaviour
     // In this game, progress is determined by how many orders have been given
     public void SetMaxValue(int maxOrders)
     {
+        Debug.Log(progressSlider);
         progressSlider.maxValue = maxOrders;
     }
 
