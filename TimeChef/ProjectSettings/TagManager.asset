@@ -8,6 +8,7 @@ TagManager:
   - Item
   - OrderManager
   - PlateManager
+  - UIController
   layers:
   - Default
   - TransparentFX
