@@ -34,4 +34,9 @@ public class GameProgressUI : MonoBehaviour
             progressSlider.value = progressSlider.value + numOrders;
         }
     }
+
+    public bool GameFinished()
+    {
+        return progressSlider.value == progressSlider.maxValue;
+    }
 }

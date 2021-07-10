@@ -6,6 +6,7 @@ public class PauseController : MonoBehaviour
 {
     public GameObject pauseMenu;
     private bool isOpen = false;
+    private bool isAvailable = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +16,7 @@ public class PauseController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!isOpen && Input.GetKeyDown(KeyCode.Tab)){
+        if(isAvailable && !isOpen && Input.GetKeyDown(KeyCode.Tab)){
             Debug.Log("Display pause menu");
             pauseMenu.SetActive(true);
             Time.timeScale = 0;
@@ -33,5 +34,15 @@ public class PauseController : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+
+    public void Disable()
+    {
+        isAvailable = false;
+    }
+
+    public void Enable()
+    {
+        isAvailable = true;
     }
 }

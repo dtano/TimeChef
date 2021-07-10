@@ -13,6 +13,8 @@ public class ControlledMovement : MonoBehaviour
     public Transform detectionPoint;
 
     private Vector2 movement;
+
+    private bool canMove = true;
     
     // Start is called before the first frame update
     void Start()
@@ -25,19 +27,21 @@ public class ControlledMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
+        if(canMove){
+            movement.x = Input.GetAxisRaw("Horizontal");
+            movement.y = Input.GetAxisRaw("Vertical");
 
-        float angle = Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg;
-        //Debug.Log(angle);
-        //detectionPoint.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        Animate();
+            float angle = Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg;
+            //Debug.Log(angle);
+            //detectionPoint.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            Animate();
 
-        if(movement.x != 0 || movement.y != 0){
-            currSpeed = 1;
-            detectionPoint.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        }else{
-            currSpeed = 0;
+            if(movement.x != 0 || movement.y != 0){
+                currSpeed = 1;
+                detectionPoint.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            }else{
+                currSpeed = 0;
+            }
         }
     }
 
@@ -56,5 +60,15 @@ public class ControlledMovement : MonoBehaviour
         }
         
         animator.SetFloat("Magnitude", movement.magnitude);
+    }
+
+    public void Freeze()
+    {
+        canMove = false;
+    }
+
+    public void AllowMovement()
+    {
+        canMove = true;
     }
 }
