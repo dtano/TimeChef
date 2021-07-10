@@ -52,6 +52,8 @@ public class OrderManager : MonoBehaviour
 
     // A UI element that visually represents the score
     private ScoreController scoreController;
+    // A UI element that visually tells the player how far they are to the last order
+    private GameProgressController progressController;
     
     
     // Start is called before the first frame update
@@ -61,8 +63,20 @@ public class OrderManager : MonoBehaviour
         orderSuite = new List<Order>();
         plateManager = GameObject.FindGameObjectWithTag("PlateManager").GetComponent<PlateManager>();
         timeManipulator = GameObject.FindGameObjectWithTag("Agent").GetComponent<TimeManipulator>();
-        scoreController = GameObject.FindGameObjectWithTag("UIController").GetComponent<ScoreController>();
         
+        InitUI();
+        
+    }
+
+    // This method is to initialize all UI variables that depend on OrderManager. Only called once
+    void InitUI()
+    {
+        GameObject uiController = GameObject.FindGameObjectWithTag("UIController");
+        scoreController = uiController.GetComponent<ScoreController>();
+        progressController = uiController.GetComponent<GameProgressController>();
+        
+        // Initialize the max value to be the max number of orders
+        progressController.SetMaxValue(numTotalOrders);
     }
 
     // Update is called once per frame
@@ -181,6 +195,7 @@ public class OrderManager : MonoBehaviour
                     Debug.Log("Remove unfinished order");
                     numCompletedOrders+=1;
                     order.EndOrder(false);
+                    progressController.UpdateValue();
                     score -= 10;
                     totalScoreLost -= 10;
                 }
@@ -227,6 +242,7 @@ public class OrderManager : MonoBehaviour
             score += 10;
             scoreController.UpdateScore(10);
             timeManipulator.AddPoints(1);
+            progressController.UpdateValue();
         }
 
         // Remove all ended orders
@@ -238,6 +254,7 @@ public class OrderManager : MonoBehaviour
             orderSuite.RemoveAt(0);
             score -= 10;
             scoreController.UpdateScore(-10);
+            progressController.UpdateValue();
         }
 
 
