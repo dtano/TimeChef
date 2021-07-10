@@ -23,6 +23,7 @@ public class Plate : Item
 
     // This can be filled when a complete dish is either tranferred here or created
     private string dishName;
+    private AudioManager audioManager;
 
     // Dish and kitchenware can both synthesize ingredients to food, so an interface might be appropriate
 
@@ -36,6 +37,8 @@ public class Plate : Item
         }else{
             spriteRenderer.sprite = cleanSprite;
         }
+
+        audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
     }
 
     // Update is called once per frame
@@ -99,6 +102,7 @@ public class Plate : Item
             ingredients.Add(ingredient);
             // Everytime you add an ingredient, try to see if its a proper combination
             IngredientSynthesis();
+            audioManager.PlaySound("PlateSFX");
             return true;
         }
         return false;
@@ -108,6 +112,7 @@ public class Plate : Item
     {
         if(newIngredients.Count + this.ingredients.Count <= maxContents && !holdCompleteDish){
             ingredients.AddRange(newIngredients);
+            audioManager.PlaySound("PlateSFX");
             IngredientSynthesis();
         }
     }

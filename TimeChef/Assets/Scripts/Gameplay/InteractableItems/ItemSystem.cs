@@ -14,10 +14,12 @@ public class ItemSystem : MonoBehaviour
     public LayerMask detectionLayer;
 
     private SpriteRenderer spriteRenderer;
+    private AudioManager audioManager;
 
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
     }
     
     // Update is called once per frame
@@ -105,6 +107,7 @@ public class ItemSystem : MonoBehaviour
         currItem.GetComponent<Collider2D>().enabled = false;
 
         currItem.ChangeSortOrder(spriteRenderer.sortingOrder + 1);
+        audioManager.PlaySound("PickUp");
         
         // Change animation to pick up and play pick up sound effect
         detectedItem = null;
@@ -129,6 +132,7 @@ public class ItemSystem : MonoBehaviour
         detectedItem = item;
         PickUp();
         item.GetComponent<Item>().DeactivateInteraction();
+        audioManager.PlaySound("PickUp");
     }
 
     public void DropItem()

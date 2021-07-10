@@ -25,6 +25,8 @@ public class Kitchenware : Item
     private float currTime;
 
     private Timer timer;
+
+    private AudioSource soundEffect;
     
     // Start is called before the first frame update
     void Start()
@@ -39,6 +41,8 @@ public class Kitchenware : Item
 
         // Make sure the cooking timer is not visible at the start
         timer.Deactivate();
+
+        soundEffect = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -60,6 +64,7 @@ public class Kitchenware : Item
                 //BurnCheck();
                 timer.Stop();
                 isCooking = false;
+                soundEffect.Stop();
             }
         }
 
@@ -145,7 +150,9 @@ public class Kitchenware : Item
             currTime = timer.GetCurrTime();
             isCooking = false;
             onHold = true;
+            soundEffect.Pause();
         }
+
         Debug.Log("Tool removed from appliance");
     }
 
@@ -195,6 +202,8 @@ public class Kitchenware : Item
             onHold = false;
         }
         timer.Activate();
+
+        soundEffect.Play();
     }
 
     public bool IsHoldingACookedItem()

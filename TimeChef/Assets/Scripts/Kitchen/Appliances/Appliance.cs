@@ -13,6 +13,7 @@ public abstract class Appliance : MonoBehaviour
 
     // Allows the appliance to be affected by the player's time abilities
     protected ITimeEffect timeEffect;
+    protected AudioSource soundEffect;
     public int timeCost;
 
 

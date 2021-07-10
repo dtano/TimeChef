@@ -19,6 +19,7 @@ public class ChoppingBoard : Appliance
         timer.Deactivate();
 
         timeEffect = new TimeAccelerator(timer, timeCost);
+        soundEffect = GetComponent<AudioSource>();
 
         processCloud.SetActive(false);
     }
@@ -68,6 +69,8 @@ public class ChoppingBoard : Appliance
         Animate(true);
         timer.SetDuration(processingTime, false);
         timer.Activate();
+
+        soundEffect.Play();
     }
 
     // Plays a process animation when an ingredient is being cut
@@ -129,6 +132,8 @@ public class ChoppingBoard : Appliance
         // Change sprite
         heldIngredient.ActivateInteraction();
         timer.Deactivate();
+
+        soundEffect.Stop();
     }
 
     // Reset's the board's settings

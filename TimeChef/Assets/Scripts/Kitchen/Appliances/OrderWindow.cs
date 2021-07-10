@@ -7,11 +7,12 @@ public class OrderWindow : Appliance
     // What does an order window need??
     // Need to have some sort of relationship with the order manager
     public OrderManager orderManager;
+    private AudioManager audioManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
     }
 
     // Update is called once per frame
@@ -44,6 +45,7 @@ public class OrderWindow : Appliance
     {
         if(orderManager.HasOrders()){
             orderManager.SubmitOrder((Plate) givenItem);
+            audioManager.PlaySound("SubmitOrder");
             givenItem.Reset();
             Destroy(givenItem.gameObject);
         }else{

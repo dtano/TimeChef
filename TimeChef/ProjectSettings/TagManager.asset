@@ -9,6 +9,7 @@ TagManager:
   - OrderManager
   - PlateManager
   - UIController
+  - AudioManager
   layers:
   - Default
   - TransparentFX
