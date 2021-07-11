@@ -12,7 +12,6 @@ public class UITimer : Timer
             currTime -= Time.deltaTime;
 
             if(Mathf.Round(currTime) <= 0){
-                Debug.Log("Time's up");
                 timeOver = true;
                 timeSlider.value = 0;
                 //Debug.Log(currTime);

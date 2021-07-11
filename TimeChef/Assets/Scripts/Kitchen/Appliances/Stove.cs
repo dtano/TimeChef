@@ -23,13 +23,13 @@ public class Stove : Appliance
             // Turn off burner and stop timer
         }
         
-        if(cookingTool != null)
-        {
-            if(cookingTool.IsCooking()){
-                // Turn stove on 
-            }
-            Debug.Log(cookingTool);
-        }
+        // if(cookingTool != null)
+        // {
+        //     if(cookingTool.IsCooking()){
+        //         // Turn stove on 
+        //     }
+            
+        // }
 
         Animate();
     }
@@ -63,7 +63,7 @@ public class Stove : Appliance
 
     public void RemoveTool()
     {
-        Debug.Log("Stove not holding anything anymore");
+        //Debug.Log("Stove not holding anything anymore");
         cookingTool.RemoveFromAppliance();
         isHolding = false;
         cookingTool = null;

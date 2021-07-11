@@ -17,7 +17,6 @@ public class PauseController : MonoBehaviour
     void Update()
     {
         if(isAvailable && !isOpen && Input.GetKeyDown(KeyCode.Tab)){
-            Debug.Log("Display pause menu");
             pauseMenu.SetActive(true);
             Time.timeScale = 0;
             isOpen = true;

@@ -50,4 +50,9 @@ public class ScoreUI : MonoBehaviour
         animator.SetTrigger("Display");
         //scoreChange.enabled = true;
     }
+
+    public int GetScore()
+    {
+        return currScore;
+    }
 }

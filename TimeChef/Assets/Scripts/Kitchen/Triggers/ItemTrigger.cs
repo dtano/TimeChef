@@ -14,14 +14,12 @@ public class ItemTrigger : InteractionTrigger
     protected override void Interact()
     {
         if(Input.GetKeyDown(KeyCode.Space)){
-            Debug.Log(transform.parent.gameObject.name);
             if(agentItems.GetItem(transform.parent.gameObject)){
                 Deactivate();
             }
         }
 
         if(Input.GetKeyDown(KeyCode.F)){
-            Debug.Log("Attempt to speed up despoiling process");
             if(item.AbleToManipulate()){
                 TimeManipulator manipulator = gameplayAgent.GetComponent<TimeManipulator>();
                 item.ManipulateTime(manipulator);

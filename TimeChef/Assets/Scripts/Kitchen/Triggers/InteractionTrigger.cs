@@ -46,7 +46,6 @@ public abstract class InteractionTrigger : MonoBehaviour
     {
         if(col.tag == "Agent"){
             // Then appliance can be used
-            Debug.Log("item can be taken or interacted with");
             inRange = true;
             gameplayAgent = col.gameObject;
             agentItems = gameplayAgent.GetComponent<ItemSystem>();
@@ -79,7 +78,6 @@ public abstract class InteractionTrigger : MonoBehaviour
 
     public void Deactivate()
     {
-        Debug.Log("Calling deactivate");
         GetComponent<Collider2D>().enabled = false;
         inRange = false;
     }

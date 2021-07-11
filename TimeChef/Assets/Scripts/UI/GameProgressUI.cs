@@ -22,12 +22,6 @@ public class GameProgressUI : MonoBehaviour
     //     progressSlider.value = 0;    
     // }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     // In this game, progress is determined by how many orders have been given
     public void SetMaxValue(int maxOrders)
     {

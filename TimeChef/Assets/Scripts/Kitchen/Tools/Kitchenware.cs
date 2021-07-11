@@ -117,7 +117,6 @@ public class Kitchenware : Item
                 var isEqual = new HashSet<string>(recipeIng).SetEquals(ingredientNames);
                 if(isEqual){
                     // Found a recipe for this combination
-                    Debug.Log("Found a recipe");
                     return entry.Key;
                 }
             }
@@ -125,7 +124,6 @@ public class Kitchenware : Item
         }
 
         
-        Debug.Log("No recipe with this combo");
         return null;
     }
 
@@ -145,7 +143,6 @@ public class Kitchenware : Item
             cookingTime = 0;
         }else{
             // Stop the timer since the pan was removed in the middle of cooking
-            Debug.Log("Pan was still cooking when it was removed from stove");
             timer.Deactivate();
             currTime = timer.GetCurrTime();
             isCooking = false;
@@ -153,7 +150,6 @@ public class Kitchenware : Item
             soundEffect.Pause();
         }
 
-        Debug.Log("Tool removed from appliance");
     }
 
     // Checks whether the food in the pan or pot is burnt
@@ -179,7 +175,7 @@ public class Kitchenware : Item
         isOnAppliance = true;
         cookingTime = appliance.processingTime;
         //timeEffect.SetCost(appliance.timeCost);
-        Debug.Log("Tool placed on appliance");
+        //Debug.Log("Tool placed on appliance");
 
     }
 
@@ -239,20 +235,18 @@ public class Kitchenware : Item
         if(!plate.IsPlateDirty() && ingredients.Count > 0){
             string dishName = IngredientSynthesis();
             if(dishName != null){
-                Debug.Log("Dish in kitchenware successfully transferred to plate");
+               
                 plate.SetDish(dishName);
             }else{
                 if(ingredients.Count == numAcceptedIngredients){
-                    Debug.Log("Failed combination while cooking");
                     plate.SetDish("muck");
                 }else{
                     // Means we gotta transfer ingredients
-                    Debug.Log("Transfer remaining ingredients to plate");
                     plate.AddMultipleIngredients(ingredients);
                 }
             }
 
-            Debug.Log("Food moved to dish");
+           
             Reset();
         }
     }
@@ -260,10 +254,8 @@ public class Kitchenware : Item
     public override bool AbleToManipulate()
     {
         if(timeEffect != null && IsCooking()){
-            Debug.Log("Able to manipulate pot");
             return true;
         }
-        Debug.Log("Can't manipulate pot");
         return false;
     }
 

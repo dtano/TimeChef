@@ -35,7 +35,6 @@ public class TimeManipulator : MonoBehaviour
     // Adds points back to the player's current time points
     public void AddPoints(int points)
     {
-        Debug.Log("Points added");
         if(currTimePoints + points > timePoints){
             ResetPoints();
             AddBullets(timePoints);

@@ -28,7 +28,6 @@ public class Order : MonoBehaviour
     void Update()
     {
         if(timer.IsTimerFinished()){
-            Debug.Log("Player failed to serve on time");
             isFailed = true;
             //EndOrder(false);
         }
@@ -63,11 +62,10 @@ public class Order : MonoBehaviour
 
     public void EndOrder(bool success)
     {
-        if(!success){
-            Debug.Log("FAIL TO SERVE ORDER #" + orderNum.ToString());
-        }
+        // if(!success){
+        //     Debug.Log("FAIL TO SERVE ORDER #" + orderNum.ToString());
+        // }
         float endTime = timer.GetCurrTime();
-        Debug.Log("Order finished at " + Mathf.Round(endTime).ToString());
         Destroy(gameObject);
     }
 

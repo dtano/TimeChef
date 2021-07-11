@@ -9,22 +9,26 @@ public class GameProgressController : MonoBehaviour
     private ControlledMovement playerMovement;
     public GameObject endingScreen;
 
+    // This is to update the ending screen's score
+    private ScoreController scoreController;
+
     private bool gameOver = false;
 
     void Start()
     {
         playerMovement = GameObject.FindGameObjectWithTag("Agent").GetComponent<ControlledMovement>();
+        scoreController = GetComponent<ScoreController>();
     }
 
     void Update()
     {
         if(!gameOver && gameProgressUI.GameFinished()){
-            Debug.Log("All Orders Completed");
             GetComponent<PauseController>().Disable();
             // Also need to freeze the player
             playerMovement.Freeze();
             // Now fade a screen in for the final screen
             endingScreen.SetActive(true);
+            endingScreen.GetComponent<EndingScreenUI>().UpdateScore(scoreController.GetScore());
             gameOver = true;
 
         }

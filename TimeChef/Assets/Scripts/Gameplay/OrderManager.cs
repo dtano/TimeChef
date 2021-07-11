@@ -31,7 +31,7 @@ public class OrderManager : MonoBehaviour
     // Used to determin order number
     private int orderCounter = 1;
 
-    private int totalScore = 0;
+    //private int totalScore = 0;
 
     // How long the player has to serve as many orders as possible
     public float operationTime;
@@ -75,7 +75,6 @@ public class OrderManager : MonoBehaviour
         scoreController = uiController.GetComponent<ScoreController>();
         progressController = uiController.GetComponent<GameProgressController>();
 
-        Debug.Log(progressController);
         
         // Initialize the max value to be the max number of orders
         progressController.SetMaxValue(numTotalOrders);
@@ -98,7 +97,6 @@ public class OrderManager : MonoBehaviour
             if(numCompletedOrders == numTotalOrders){
                 completeOperation = true;
                 inProgress = false;
-                Debug.Log("All orders have been given");
 
                 // Clear any remaining orders
                 // if(currOrder != null){
@@ -148,7 +146,6 @@ public class OrderManager : MonoBehaviour
 
     void MakeNewOrder()
     {
-        Debug.Log("Make new order");
         // Pick a random dish name from the available dishes
         string[] possibleDishes = new string[RecipeBook._instance.recipes.Keys.Count];
         RecipeBook._instance.recipes.Keys.CopyTo(possibleDishes, 0);
@@ -158,7 +155,6 @@ public class OrderManager : MonoBehaviour
         // Pick a random customer type. This will impact the longest a customer will wait for their dish
         //CustomerDB.CustomerType customerType = CustomerDB._instance.GetRandomCustType();
         CustomerDB.CustomerType customerType = CustomerDB._instance.GetRandomCustType();
-        Debug.Log("Customer " + customerType);
         float waitTime = CustomerDB._instance.waitTimes[customerType];
 
         GameObject orderObject = InstantiateOrderObject();
@@ -194,7 +190,6 @@ public class OrderManager : MonoBehaviour
             int totalScoreLost = 0;
             foreach(Order order in orderSuite){
                 if(order != null && order.FailedToServe()){
-                    Debug.Log("Remove unfinished order");
                     numCompletedOrders+=1;
                     order.EndOrder(false);
                     progressController.UpdateValue();
@@ -222,7 +217,8 @@ public class OrderManager : MonoBehaviour
             }
         }
         GameObject orderObject = Instantiate(orderPrefab, availableOrderSlot.position, Quaternion.identity);
-        orderObject.transform.parent = availableOrderSlot;
+        //orderObject.transform.parent = availableOrderSlot;
+        orderObject.transform.SetParent(availableOrderSlot, true);
 
         return orderObject;
     }
@@ -284,5 +280,10 @@ public class OrderManager : MonoBehaviour
     {
         //return currOrder != null;
         return orderSuite.Count > 0;
+    }
+
+    public void StartOperation()
+    {
+        startOperation = true;
     }
 }

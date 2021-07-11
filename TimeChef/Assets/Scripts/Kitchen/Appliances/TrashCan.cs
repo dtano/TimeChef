@@ -15,7 +15,6 @@ public class TrashCan : Appliance
         // Can accept ingredients (fresh, whole, burnt, spoiled)
         // Kitchenware containing food, plate containing food. I think item is fine
         if(givenItem is Ingredient){
-            Debug.Log("Trash can accepts this offering");
             return true;
         }else if(givenItem is Kitchenware){
             // Check whether it has anything in it
@@ -43,7 +42,7 @@ public class TrashCan : Appliance
         soundEffect.Play();
         givenItem.Reset();
         // Play trash sound effect
-        Debug.Log("item has been disposed off or reset");
+        
     }
 
     protected override void AcceptItem(ItemSystem agentItems)

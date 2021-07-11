@@ -5,7 +5,7 @@ using UnityEngine;
 public class Ingredient : Item
 {
     public bool isFresh = true;
-    private bool isProcessed = false;
+    //private bool isProcessed = false;
     public float processTime;
     private float currTimer = 0f;
 
@@ -56,9 +56,8 @@ public class Ingredient : Item
 
     public void TransformType(IngredientType newType)
     {
-        if(ingredientType == IngredientType.Chopped && newType == IngredientType.Whole){
-            Debug.Log("Invalid transformation");
-        }else{
+        if(!(ingredientType == IngredientType.Chopped && newType == IngredientType.Whole)){
+            
             ingredientType = newType;
             string capitalizedName = char.ToUpper(ingredientName[0]) + ingredientName.Substring(1);
             
@@ -76,7 +75,6 @@ public class Ingredient : Item
             }
             // Change name of the ingredient to reflect the new type
             // Change sprite
-            Debug.Log("Ingredient has been transformed");
         }
     }
 

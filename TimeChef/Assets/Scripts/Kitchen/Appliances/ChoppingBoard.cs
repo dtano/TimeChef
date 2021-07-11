@@ -115,7 +115,6 @@ public class ChoppingBoard : Appliance
     {
         // Only when its finished is when you can take the chopped ingredient
         if(isFinished){
-            Debug.Log("Transfer from chopping board to plate");
             plate.AddIngredient(heldIngredient);
             Destroy(heldIngredient.gameObject);
         }

@@ -23,16 +23,13 @@ public class ToolTrigger : InteractionTrigger
         }else{
             // If the player isn't carrying anything
             if(Input.GetKeyDown(KeyCode.Space)){
-                Debug.Log("SPACE ON TOOL!");
                 if(agentItems.GetItem(transform.parent.gameObject)){
                     Deactivate();
                 }
             }
 
             if(Input.GetKeyDown(KeyCode.F)){
-                Debug.Log("Attempt to manipulate tool");
                 if(tool.AbleToManipulate()){
-                    Debug.Log("Tool can be manipulated");
                     TimeManipulator manipulator = gameplayAgent.GetComponent<TimeManipulator>();
                     // Hide speed up text and show the hourglass sprite
                     if(speedUpText != null){

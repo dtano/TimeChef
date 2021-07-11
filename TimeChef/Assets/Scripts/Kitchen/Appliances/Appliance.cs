@@ -31,21 +31,15 @@ public abstract class Appliance : MonoBehaviour
 
     public void UseAppliance(ItemSystem agentItems)
     {
-        Debug.Log("Call use appliance");
         if(agentItems.isCarrying()){
-                Debug.Log("Player can use this appliance");
                 // Means that the player is able to use this appliance
                 if(WillAcceptItem(agentItems.GetCurrItem())){
                     // Take the item
-                    Debug.Log("Item accepted");
                     AcceptItem(agentItems);
                 }else{
-                    Debug.Log("Item declined");
                     DeclineItem();
                 }
                 
-        }else{
-            Debug.Log("Can't use this appliance");
         }
     }
 
@@ -57,7 +51,7 @@ public abstract class Appliance : MonoBehaviour
 
     void DeclineItem()
     {
-        Debug.Log("Can't take this item");
+        //Debug.Log("Can't take this item");
     }
 
     public bool isBusy()

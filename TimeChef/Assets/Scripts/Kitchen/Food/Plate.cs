@@ -12,7 +12,7 @@ public class Plate : Item
     
     // Signifies whether a proper dish is being carried by this dish
     private bool holdCompleteDish = false;
-    private bool isFailed = false;
+    //private bool isFailed = false;
     
     private bool isDirty = false;
     private int maxContents = 3;
@@ -44,9 +44,9 @@ public class Plate : Item
     // Update is called once per frame
     void Update()
     {
-        if(!holdCompleteDish && ingredients.Count > 0){
-            Debug.Log(ingredients.Count);
-        }
+        // if(!holdCompleteDish && ingredients.Count > 0){
+        //     Debug.Log(ingredients.Count);
+        // }
     }
 
     // This would be the same as the one from kitchenware
@@ -60,7 +60,6 @@ public class Plate : Item
         foreach(Ingredient ing in ingredients){
             if(ing.IsBurnt()){
                 // This means no matter what the dish will be invalid
-                Debug.Log("Created muck");
 
                 PlateFailedDish();
                 holdCompleteDish = true;
@@ -77,7 +76,6 @@ public class Plate : Item
                 var isEqual = new HashSet<string>(recipeIng).SetEquals(ingredientNames);
                 if(isEqual){
                     // Found a recipe for this combination
-                    Debug.Log("Found a recipe");
                     SetDish(entry.Key);
                     return;
                 }
@@ -123,12 +121,12 @@ public class Plate : Item
         if(RecipeBook._instance.recipes.ContainsKey(dishName)){
             // Then its a valid dish
             this.dishName = dishName;
-            Debug.Log("Valid dish plated");
+            //Debug.Log("Valid dish plated");
             spriteRenderer.sprite = RecipeBook._instance.dishSprites[dishName];
             
         }else{
             // Means that its muck
-            Debug.Log("You plated muck");
+            //Debug.Log("You plated muck");
             PlateFailedDish();
         }
         // What if the plate has some ingredients on it? Just override the ingredients
@@ -141,14 +139,14 @@ public class Plate : Item
     {
         this.dishName = "Muck";
         spriteRenderer.sprite = RecipeBook._instance.dishSprites[dishName];
-        isFailed = true;
+        //isFailed = true;
     }
 
     // Clear ingredients and change sprite back
     public override void Reset()
     {
         ingredients.Clear();
-        isFailed = false;
+        //isFailed = false;
         holdCompleteDish = false;
         dishName = null;
         spriteRenderer.sprite = cleanSprite;

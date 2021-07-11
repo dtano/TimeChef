@@ -5,7 +5,7 @@ using UnityEngine;
 public class ControlledMovement : MonoBehaviour
 {
     public float moveSpeed;
-    private float currSpeed = 0f;
+    //private float currSpeed = 0f;
     private Rigidbody2D rb;
     private Animator animator;
     private ItemSystem itemSystem;
@@ -37,10 +37,10 @@ public class ControlledMovement : MonoBehaviour
             Animate();
 
             if(movement.x != 0 || movement.y != 0){
-                currSpeed = 1;
+                //currSpeed = 1;
                 detectionPoint.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
             }else{
-                currSpeed = 0;
+                //currSpeed = 0;
             }
         }
     }
@@ -65,6 +65,7 @@ public class ControlledMovement : MonoBehaviour
     public void Freeze()
     {
         canMove = false;
+        movement = Vector2.zero;
     }
 
     public void AllowMovement()

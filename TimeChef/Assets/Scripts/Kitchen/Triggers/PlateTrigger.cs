@@ -37,12 +37,10 @@ public class PlateTrigger : InteractionTrigger
             if(carriedItem is Ingredient){
                 // Check the ingredient status? Or maybe just add it anyway
                 if(((Ingredient) carriedItem).IsSpoiled() || ((Ingredient) carriedItem).IsBurnt()){
-                    Debug.Log("Can't accept spoiled or burned ingredient");
+                    //Debug.Log("Can't accept spoiled or burned ingredient");
                 }else{
                     if(plate.AddIngredient((Ingredient) carriedItem)){
                         agentItems.Dispose();
-                    }else{
-                        Debug.Log("Can't accept this ingredient, because plate is full");
                     }
                 }
             }else if(carriedItem is Kitchenware){

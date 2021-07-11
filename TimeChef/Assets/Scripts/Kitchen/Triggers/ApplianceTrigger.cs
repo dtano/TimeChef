@@ -5,20 +5,19 @@ using UnityEngine;
 public class ApplianceTrigger : InteractionTrigger
 {
     private Appliance appliance;
-    private AudioManager audio;
+    private AudioManager audioManager;
     
     // Start is called before the first frame update
     protected override void OnAwake()
     {
         appliance = GetComponentInParent<Appliance>();
-        audio = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
+        audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
     }
 
     protected override void Interact()
     {
         //Debug.Log("Calling interact");
         if(Input.GetKeyDown(KeyCode.E)){
-            Debug.Log("Interact!");
             appliance.UseAppliance(agentItems);
         }
 
@@ -29,7 +28,7 @@ public class ApplianceTrigger : InteractionTrigger
                 if(speedUpText != null){
                     speedUpText.enabled = false;
                 }
-                audio.PlaySound("FastForward");
+                audioManager.PlaySound("FastForward");
             }
         }
 

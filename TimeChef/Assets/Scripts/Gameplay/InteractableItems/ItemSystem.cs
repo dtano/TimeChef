@@ -57,11 +57,9 @@ public class ItemSystem : MonoBehaviour
                 currItem.ActivateInteraction();
                 currItem.ResetSortOrder();
                 currItem = null;
-                Debug.Log("Dropped item");
+                
             }
 
-        }else{
-            Debug.Log("Curr item is null");
         }
         //else{
         //     if(Input.GetKeyDown(KeyCode.Space)){
@@ -78,7 +76,6 @@ public class ItemSystem : MonoBehaviour
             return false;
         }else{
             if(obj.tag == "Item"){
-                Debug.Log("Detected item");
                 detectedItem = obj.gameObject;
                 return true;
             }
@@ -142,8 +139,6 @@ public class ItemSystem : MonoBehaviour
             //SpriteRenderer sr = currItem.gameObject.GetComponent<SpriteRenderer>();
             currItem.ResetSortOrder();
             currItem = null;
-        }else{
-            Debug.Log("Curr item is null already");
         }
         // Change player animation back to normal hands
     }

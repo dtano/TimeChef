@@ -42,7 +42,6 @@ public class Timer : MonoBehaviour
             //currTime += Time.deltaTime;
 
             if(Mathf.Round(currTime) >= duration){
-                Debug.Log("Time's up, food's done cooking");
                 timeOver = true;
                 timeSlider.value = duration;
 
@@ -60,7 +59,7 @@ public class Timer : MonoBehaviour
                 //timerOn = false;
                 //currTime = duration;
             }else{
-                Debug.Log(Mathf.Round(currTime));
+                //Debug.Log(Mathf.Round(currTime));
                 timeSlider.value = currTime;
             }
         }
@@ -74,8 +73,6 @@ public class Timer : MonoBehaviour
             //Debug.Log("Pan was not on hold");
             currTime = 0;
             timeSlider.value = duration;
-        }else{
-            Debug.Log("Pan was on hold");
         }
         // currTime = duration;
         // timeSlider.value = duration;

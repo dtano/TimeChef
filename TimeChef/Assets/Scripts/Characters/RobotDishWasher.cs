@@ -61,7 +61,7 @@ public class RobotDishWasher : MonoBehaviour
     // Full process of washing all dirty plates on the dirty plate table
     IEnumerator WashPlates()
     {
-        Debug.Log("Start plate washing");
+        
         yield return new WaitForSeconds(2f);
 
         // Start the sink 
@@ -112,7 +112,7 @@ public class RobotDishWasher : MonoBehaviour
         yield return new WaitUntil(() => timer.IsTimerFinished());
         // Should have a timer going on before calling dirtyPlate.Wash()
 
-        Debug.Log("Plate finished washing");
+        
         timer.FullReset();
         dirtyPlate.Wash();
         sink.StopSoundEffect();
@@ -150,12 +150,11 @@ public class RobotDishWasher : MonoBehaviour
     {
         isDown = true;
         // Change robot animation
-        Debug.Log("Stop the count!");
         timer.Stop();
 
         yield return new WaitForSeconds(3f);
 
-        Debug.Log("Breakdown done!");
+        
 
         // This start timer is fucking things up
         //timer.StartTimer();

@@ -8,14 +8,14 @@ public class IngredientBox : MonoBehaviour
 
     // The chance that the box might produce a spoiled ingredient
     public float spoiledChance;
-    private int maxValue;
+    //private int maxValue;
     private Animator anim;
     System.Random rand;
 
     void Start()
     {
         rand = new System.Random();
-        maxValue = 1;
+        //maxValue = 1;
         anim = GetComponent<Animator>();
     }
 
@@ -28,9 +28,9 @@ public class IngredientBox : MonoBehaviour
             GameObject newIngredient = InstantiateIngredient();
 
             // Do some chance check here
-            if(rand.Next(maxValue) < spoiledChance){
-                Debug.Log("Spoiled ingredient!");
-            }
+            // if(rand.Next(maxValue) < spoiledChance){
+            //     Debug.Log("Spoiled ingredient!");
+            // }
 
             // if(agentItems.GetItem(newIngredient)){
             //     Debug.Log("Successfully placed spawned ingredient in the hands of the player");
