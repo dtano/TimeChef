@@ -28,6 +28,8 @@ public class Sink : Appliance
         dirtyPlates = new Stack<Plate>();
         cleanPlates = new Stack<Plate>();
         timer = GetComponent<Timer>();
+        animator = GetComponent<Animator>();
+        soundEffect = GetComponent<AudioSource>();
     }
 
     protected override void Update()
@@ -128,5 +130,25 @@ public class Sink : Appliance
     {
         timer.SetDuration(processingTime, false);
         timer.Activate();
+    }
+
+    public void TurnOn()
+    {
+        animator.SetBool("IsRunning", true);
+    }
+
+    public void TurnOff()
+    {
+        animator.SetBool("IsRunning", false);
+    }
+
+    public void PlaySoundEffect()
+    {
+        soundEffect.Play();
+    }
+
+    public void StopSoundEffect()
+    {
+        soundEffect.Stop();
     }
 }

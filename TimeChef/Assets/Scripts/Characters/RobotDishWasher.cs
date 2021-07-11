@@ -15,7 +15,7 @@ public class RobotDishWasher : MonoBehaviour
 
     // Timer for the reset time
     private Timer timer;
-    private Sink sink;
+    public Sink sink;
 
     // The robot animator 
     private Animator anim;
@@ -63,6 +63,10 @@ public class RobotDishWasher : MonoBehaviour
     {
         Debug.Log("Start plate washing");
         yield return new WaitForSeconds(2f);
+
+        // Start the sink 
+        sink.TurnOn();
+
         // Start the washing animation whenever there are any dirty plates
         anim.SetBool("isWashing", true);
         while(dirtyPlateTable.GetNumItems() > 0){
@@ -78,6 +82,7 @@ public class RobotDishWasher : MonoBehaviour
         }
         // Change back to idle animation when the washing session is over
         anim.SetBool("isWashing", false);
+        sink.TurnOff();
         isProcessing = false;
         timer.Deactivate();
     }
@@ -103,12 +108,14 @@ public class RobotDishWasher : MonoBehaviour
         dirtyPlate.HideSprite();
 
         InitiateTimer();
+        sink.PlaySoundEffect();
         yield return new WaitUntil(() => timer.IsTimerFinished());
         // Should have a timer going on before calling dirtyPlate.Wash()
 
         Debug.Log("Plate finished washing");
         timer.FullReset();
         dirtyPlate.Wash();
+        sink.StopSoundEffect();
         
         PostWash(dirtyPlate);
 
