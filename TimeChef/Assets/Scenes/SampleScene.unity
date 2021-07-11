@@ -918,11 +918,11 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 4a75320b23c580d4bb7774df768a93b1, type: 3}
     - target: {fileID: 4566338300143335090, guid: 0ed0bbccdb9cfb94ca1551ad0272a1c2, type: 3}
       propertyPath: m_SortingLayer
-      value: -2
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4566338300143335090, guid: 0ed0bbccdb9cfb94ca1551ad0272a1c2, type: 3}
       propertyPath: m_SortingLayerID
-      value: -671030113
+      value: 2018953203
       objectReference: {fileID: 0}
     - target: {fileID: 4566338300143335091, guid: 0ed0bbccdb9cfb94ca1551ad0272a1c2, type: 3}
       propertyPath: m_RootOrder
@@ -2420,7 +2420,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 4a75320b23c580d4bb7774df768a93b1, type: 3}
     - target: {fileID: 4566338300143335090, guid: 0ed0bbccdb9cfb94ca1551ad0272a1c2, type: 3}
       propertyPath: m_SortingLayer
-      value: -2
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4566338300143335090, guid: 0ed0bbccdb9cfb94ca1551ad0272a1c2, type: 3}
       propertyPath: m_SortingOrder
@@ -2428,7 +2428,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4566338300143335090, guid: 0ed0bbccdb9cfb94ca1551ad0272a1c2, type: 3}
       propertyPath: m_SortingLayerID
-      value: -671030113
+      value: 2018953203
       objectReference: {fileID: 0}
     - target: {fileID: 4566338300143335091, guid: 0ed0bbccdb9cfb94ca1551ad0272a1c2, type: 3}
       propertyPath: m_RootOrder
@@ -3585,7 +3585,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2018953203
   m_SortingLayer: -1
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16

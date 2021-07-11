@@ -21,6 +21,7 @@ public class ApplianceTrigger : InteractionTrigger
             appliance.UseAppliance(agentItems);
         }
 
+        // There's a sound effect bug
         if(Input.GetKeyDown(KeyCode.F)){
             if(appliance.AbleToManipulate() && !appliance.IsManipulated()){
                 TimeManipulator manipulator = gameplayAgent.GetComponent<TimeManipulator>();
