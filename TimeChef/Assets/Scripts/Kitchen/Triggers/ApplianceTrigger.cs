@@ -5,11 +5,13 @@ using UnityEngine;
 public class ApplianceTrigger : InteractionTrigger
 {
     private Appliance appliance;
+    private AudioManager audio;
     
     // Start is called before the first frame update
     protected override void OnAwake()
     {
         appliance = GetComponentInParent<Appliance>();
+        audio = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
     }
 
     protected override void Interact()
@@ -21,13 +23,13 @@ public class ApplianceTrigger : InteractionTrigger
         }
 
         if(Input.GetKeyDown(KeyCode.F)){
-            Debug.Log("Attempt to speed up process");
             if(appliance.AbleToManipulate() && !appliance.IsManipulated()){
                 TimeManipulator manipulator = gameplayAgent.GetComponent<TimeManipulator>();
                 appliance.ManipulateTime(manipulator);
                 if(speedUpText != null){
                     speedUpText.enabled = false;
                 }
+                audio.PlaySound("FastForward");
             }
         }
 

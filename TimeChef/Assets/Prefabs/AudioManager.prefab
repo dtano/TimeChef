@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5162078418329920502}
   m_Layer: 0
   m_Name: AudioManager
-  m_TagString: Untagged
+  m_TagString: AudioManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,4 +43,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a00482f590f3c2340b9f0eb22d0aee95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: []
+  sounds:
+  - name: SubmitOrder
+    clip: {fileID: 8300000, guid: 51dc19d28cc23e542b40ed8dce70be6e, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: PlateSFX
+    clip: {fileID: 8300000, guid: b61dde866ba4a134088b1080ba75c77b, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: PickUp
+    clip: {fileID: 8300000, guid: 4b280921ba2cd53448a0103c4ef8d707, type: 3}
+    volume: 0.772
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
