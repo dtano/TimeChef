@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseController : MonoBehaviour
 {
@@ -44,4 +45,23 @@ public class PauseController : MonoBehaviour
     {
         isAvailable = true;
     }
+
+    public void Restart()
+    {
+        // Reload the scene
+        Time.timeScale = 1;
+        SceneManager.LoadScene(0);
+    }
+
+    public void Deactivate()
+    {
+        isAvailable = false;
+    }
+
+    public void Activate()
+    {
+        isAvailable = true;
+    }
+
+
 }

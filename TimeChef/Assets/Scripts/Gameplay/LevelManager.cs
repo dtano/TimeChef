@@ -7,6 +7,8 @@ public class LevelManager : MonoBehaviour
 {
     private ControlledMovement playerMovement;
     private PageManager tutorialScreenManager;
+    private PauseController pauseController;
+    
     [SerializeField]
     private OrderManager orderManager;
 
@@ -14,7 +16,10 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         playerMovement = GameObject.FindGameObjectWithTag("Agent").GetComponent<ControlledMovement>();
-        tutorialScreenManager = GameObject.FindGameObjectWithTag("UIController").GetComponent<PageManager>();
+        GameObject UIController = GameObject.FindGameObjectWithTag("UIController");
+        
+        tutorialScreenManager = UIController.GetComponent<PageManager>();
+        pauseController = UIController.GetComponent<PauseController>();
         
 
         StartCoroutine(TutorialSequence());
@@ -29,6 +34,7 @@ public class LevelManager : MonoBehaviour
     IEnumerator TutorialSequence()
     {
         playerMovement.Freeze();
+        pauseController.Deactivate();
         yield return new WaitForSeconds(1f);
         tutorialScreenManager.Display();
     }
@@ -46,6 +52,7 @@ public class LevelManager : MonoBehaviour
 
         playerMovement.AllowMovement();
         orderManager.StartOperation();
+        pauseController.Activate();
 
     }
 }
