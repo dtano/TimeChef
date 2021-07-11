@@ -25,7 +25,6 @@ public class GameProgressUI : MonoBehaviour
     // In this game, progress is determined by how many orders have been given
     public void SetMaxValue(int maxOrders)
     {
-        Debug.Log(progressSlider);
         progressSlider.maxValue = maxOrders;
     }
 
