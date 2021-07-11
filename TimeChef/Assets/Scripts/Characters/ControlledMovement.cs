@@ -17,7 +17,7 @@ public class ControlledMovement : MonoBehaviour
     private bool canMove = true;
     
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>(); 
@@ -66,6 +66,8 @@ public class ControlledMovement : MonoBehaviour
     {
         canMove = false;
         movement = Vector2.zero;
+        animator.SetFloat("Vertical", -1);
+        animator.SetFloat("Horizontal", 0);
     }
 
     public void AllowMovement()

@@ -27,7 +27,7 @@ public class CustomerDB : MonoBehaviour
     void Start()
     {
         waitTimes = new Dictionary<CustomerType, float>(){
-            {CustomerType.Cube, 30}, 
+            {CustomerType.Cube, 35}, 
             {CustomerType.Human, 45},
             {CustomerType.Fleeb, 40}
         };
